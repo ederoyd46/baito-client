@@ -82,6 +82,7 @@ int jobs_search(char *searchTerm) {
     puts("Reading response.");
   
     /* read the response */
+    char *response = malloc(1024);
     for(;;)
     {
       char buf[1024];
@@ -89,14 +90,21 @@ int jobs_search(char *searchTerm) {
       wait_on_socket(sockfd, 1, 60000L);
       res = curl_easy_recv(curl, buf, 1024, &iolen);
   
-      if(CURLE_OK != res)
+      if(CURLE_OK != res) 
         break;
-  
+      
       nread = (curl_off_t)iolen;
+      
+      char *existing = malloc(strlen(response));
+      strcpy(existing, response);
+      response = malloc(strlen(response) + strlen(buf));
+      strcpy(response, existing);
+      strcat(response, buf);
   
       printf("Received %" CURL_FORMAT_CURL_OFF_T " bytes.\n", nread);
     }
     
+    puts(response);
     
     curl_easy_cleanup(curl);
   }
