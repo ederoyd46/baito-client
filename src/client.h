@@ -1,0 +1,1 @@
+int jobs_search(char *searchTerm);
