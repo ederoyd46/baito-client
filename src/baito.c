@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
 #include <curl/curl.h>
+#include "parson.h"
 
 struct MemoryStruct {
   char *memory;
@@ -60,20 +60,28 @@ int jobs_search(char *searchTerm) {
   char *api = "https://baito.co.uk/api/search?searchTerm=%s";
   char *apiUrl = malloc(strlen(api) + strlen(searchTerm) +1);
   sprintf(apiUrl, api, searchTerm);
-  char *response = get_data(apiUrl);
-  puts(response);
   
-  if (response) {
-    free(response);
-  }
+  char *response = get_data(apiUrl);
+  // puts(response);
+  JSON_Value *jsonValue = json_parse_string(response);
+  JSON_Object *jsonObj = json_value_get_object(jsonValue);
+  puts(json_object_dotget_string(jsonObj, "SearchResultsResponse.searchTerm"));
+  // puti(json_object_dotget_boolean(jsonObj, "SearchResultsResponse.success"));
+
+    // puts(json_object_dotget_string(parsedResponse, ""));
+  
+
+  
+  // if (response) free(response);
+  
+  
+
   // if(chunk.memory) {
   //   free(chunk.memory);
   // }
   //   
   //  
   /* we're done with libcurl, so clean it up */ 
-  
-  
   
   return 0;
 }
