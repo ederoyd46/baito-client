@@ -66,7 +66,11 @@ int jobs_search(char *searchTerm) {
   JSON_Value *jsonValue = json_parse_string(response);
   JSON_Object *jsonObj = json_value_get_object(jsonValue);
   puts(json_object_dotget_string(jsonObj, "SearchResultsResponse.searchTerm"));
-  // puti(json_object_dotget_boolean(jsonObj, "SearchResultsResponse.success"));
+  printf("%i\n", json_object_dotget_boolean(jsonObj, "SearchResultsResponse.success"));
+  printf("%G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.count"));
+  printf("%G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.skip"));
+  printf("%G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.latitude"));
+  printf("%G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.longitude"));
 
     // puts(json_object_dotget_string(parsedResponse, ""));
   
