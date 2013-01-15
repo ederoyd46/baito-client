@@ -28,41 +28,61 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, voi
   return realsize;
 }
 
-
-static char* get_data(char *url) {
+static CURL* get_curl_handle() {
   CURL *curl_handle;
+  
+  curl_global_init(CURL_GLOBAL_ALL);
+  curl_handle = curl_easy_init();
+
+  if(curl_handle) {
+    curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+  }
+  
+  return curl_handle;
+}
+
+static int put_curl_handle(CURL *curl_handle) {
+  curl_easy_cleanup(curl_handle);
+  curl_global_cleanup();
+  return 0;
+}
+
+
+static char* get_data(CURL *curl_handle, char *url) {
   CURLcode res;
+
   struct MemoryStruct chunk;
   chunk.memory = malloc(1);
   chunk.size = 0;
- 
-  curl_global_init(CURL_GLOBAL_ALL);
-  curl_handle = curl_easy_init();
   
-  if(curl_handle) {
+  if(curl_handle) {    
     curl_easy_setopt(curl_handle, CURLOPT_URL, url);
-    curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
     curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&chunk);
-    curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
     res = curl_easy_perform(curl_handle);
-    if(res != CURLE_OK) fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
     
-    curl_easy_cleanup(curl_handle);
+    if(res != CURLE_OK)
+      fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
   }
  
   printf("%lu bytes retrieved\n", (long)chunk.size);
-  curl_global_cleanup();
- 
   return chunk.memory;
 }
 
+
+
 int jobs_search(char *searchTerm) {
   char *api = "https://baito.co.uk/api/search?searchTerm=%s";
-  char *apiUrl = malloc(strlen(api) + strlen(searchTerm) +1);
-  sprintf(apiUrl, api, searchTerm);
-  
-  char *response = get_data(apiUrl);
+  CURL *curl_handle = get_curl_handle();
+
+  char *parsedSearchTerm = curl_easy_escape(curl_handle, searchTerm, strlen(searchTerm));
+
+  char *apiUrl = malloc(strlen(api) + strlen(parsedSearchTerm) +1);
+  sprintf(apiUrl, api, parsedSearchTerm);
+
+  char *response = get_data(curl_handle, apiUrl);
   // puts(response);
+  
   JSON_Value *jsonValue = json_parse_string(response);
   JSON_Object *jsonObj = json_value_get_object(jsonValue);
   printf("Search Term: %s\n", json_object_dotget_string(jsonObj, "SearchResultsResponse.searchTerm"));
@@ -71,22 +91,10 @@ int jobs_search(char *searchTerm) {
   printf("Skip: %G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.skip"));
   printf("Latitude: %G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.latitude"));
   printf("Longitude: %G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.longitude"));
+  
+  if (response) free(response);
+  put_curl_handle(curl_handle);
 
-    // puts(json_object_dotget_string(parsedResponse, ""));
-  
-
-  
-  // if (response) free(response);
-  
-  
-
-  // if(chunk.memory) {
-  //   free(chunk.memory);
-  // }
-  //   
-  //  
-  /* we're done with libcurl, so clean it up */ 
-  
   return 0;
 }
 
