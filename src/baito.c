@@ -65,12 +65,12 @@ int jobs_search(char *searchTerm) {
   // puts(response);
   JSON_Value *jsonValue = json_parse_string(response);
   JSON_Object *jsonObj = json_value_get_object(jsonValue);
-  puts(json_object_dotget_string(jsonObj, "SearchResultsResponse.searchTerm"));
-  printf("%i\n", json_object_dotget_boolean(jsonObj, "SearchResultsResponse.success"));
-  printf("%G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.count"));
-  printf("%G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.skip"));
-  printf("%G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.latitude"));
-  printf("%G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.longitude"));
+  printf("Search Term: %s\n", json_object_dotget_string(jsonObj, "SearchResultsResponse.searchTerm"));
+  printf("Success: %i\n", json_object_dotget_boolean(jsonObj, "SearchResultsResponse.success"));
+  printf("Count: %G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.count"));
+  printf("Skip: %G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.skip"));
+  printf("Latitude: %G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.latitude"));
+  printf("Longitude: %G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.longitude"));
 
     // puts(json_object_dotget_string(parsedResponse, ""));
   
