@@ -11,6 +11,7 @@ BUILD_DIR=$BASE_DIR/build
 setenv_all()
 {
   # Add internal
+  export PATH="$DEVROOT/usr/bin:$PATH"
   export CPP="$DEVROOT/usr/bin/cpp"
   export CXX="$DEVROOT/usr/bin/g++"
   export CXXCPP="$DEVROOT/usr/bin/cpp"
@@ -41,8 +42,8 @@ setenv_arm7()
   unset DEVROOT SDKROOT CFLAGS CC LD CPP CXX AR AS NM CXXCPP RANLIB LDFLAGS CPPFLAGS CXXFLAGS
   export DEVROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer
   export SDKROOT=$DEVROOT/SDKs/iPhoneOS$IOS_BASE_SDK.sdk
-  export CFLAGS="-arch armv7 -pipe -no-cpp-precomp -isysroot $SDKROOT -miphoneos-version-min=$IOS_DEPLOY_TGT -I$SDKROOT/usr/include/ -I$LIB_CURL/include/" 
-  export LDFLAGS="-L$LIB_CURL/lib/ -lcurl"
+  export CFLAGS="-arch armv7 -pipe -no-cpp-precomp -isysroot $SDKROOT -miphoneos-version-min=$IOS_DEPLOY_TGT -I$SDKROOT/usr/include/" 
+  export LDFLAGS=""
   setenv_all
 }
 
@@ -56,8 +57,15 @@ setenv_i386()
 }
 setenv_arm7
 
-echo $LDFLAGS
-$CC $CFLAGS $LDFLAGS -o $BUILD_DIR/baito-client $SRC_DIR/main.c $SRC_DIR/parson.c $SRC_DIR/baito.c
+BASE_PATH=`pwd`
+uname=`uname`
+LIB_SRC_PATH=$BASE_PATH/tmp
+LIB_INSTALL_PATH=$BASE_PATH/lib
+CURL_VERSION=7.28.1
+
+./configure --prefix=$LIB_INSTALL_PATH/libcurl --host=armv7-apple-darwin --disable-shared --enable-static --with-darwinssl --without-ssl --without-libssh2 --without-librtmp --without-libidn --without-ca-bundle --enable-http --disable-rtsp --disable-ftp --disable-file --disable-ldap --disable-ldaps --disable-dict --disable-telnet --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher
+
+# $CC $CFLAGS $LDFLAGS -o $BUILD_DIR/baito-client $SRC_DIR/main.c $SRC_DIR/parson.c $SRC_DIR/baito.c
 
 
 
