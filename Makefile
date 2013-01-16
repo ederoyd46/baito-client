@@ -5,8 +5,10 @@ BUILD_DIR=$(BASE_DIR)/build
 LIB_SRC_DIR=$(BASE_DIR)/tmp
 LIB_CURL=$(BASE_DIR)/lib/libcurl
 
+IPHONE_DEV_ROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer
+
 baito-client : init $(SRC_DIR)/main.c $(SRC_DIR)/parson.c $(SRC_DIR)/baito.c
-	gcc -m64 -Wall -lcurl -I$(LIB_CURL)/include/ -L$(LIB_CURL)/lib/ \
+	gcc -Wall -lcurl -I$(LIB_CURL)/include/curl/ -L$(LIB_CURL)/lib/ \
 		-o $(BUILD_DIR)/baito-client $(SRC_DIR)/main.c $(SRC_DIR)/parson.c $(SRC_DIR)/baito.c
 
 init: 
@@ -14,3 +16,4 @@ init:
 	
 clean:
 	rm -rf $(BUILD_DIR)
+
