@@ -64,7 +64,7 @@ LIB_INSTALL_PATH=$BASE_PATH/lib
 CURL_VERSION=7.28.1
 
 ./configure --prefix=$LIB_INSTALL_PATH/libcurl --host=armv7-apple-darwin --disable-shared --enable-static --with-darwinssl --without-ssl --without-libssh2 --without-librtmp --without-libidn --without-ca-bundle --enable-http --disable-rtsp --disable-ftp --disable-file --disable-ldap --disable-ldaps --disable-dict --disable-telnet --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher
-
+make
 # $CC $CFLAGS $LDFLAGS -o $BUILD_DIR/baito-client $SRC_DIR/main.c $SRC_DIR/parson.c $SRC_DIR/baito.c
 
 

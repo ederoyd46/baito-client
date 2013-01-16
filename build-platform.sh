@@ -29,21 +29,21 @@ setenv_all()
   export LDFLAGS="$LDFLAGS"
 }
 
-setenv_arm6()
-{
-  unset DEVROOT SDKROOT CFLAGS CC LD CPP CXX AR AS NM CXXCPP RANLIB LDFLAGS CPPFLAGS CXXFLAGS
-  export DEVROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer
-  export SDKROOT=$DEVROOT/SDKs/iPhoneOS$IOS_BASE_SDK.sdk
-  export CFLAGS="-arch armv6 -pipe -no-cpp-precomp -isysroot $SDKROOT -miphoneos-version-min=$IOS_DEPLOY_TGT -I$SDKROOT/usr/include/ -L$SDKROOT/usr/lib/"
-  setenv_all
-}
-
 setenv_arm7()
 {
   unset DEVROOT SDKROOT CFLAGS CC LD CPP CXX AR AS NM CXXCPP RANLIB LDFLAGS CPPFLAGS CXXFLAGS
   export DEVROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer
   export SDKROOT=$DEVROOT/SDKs/iPhoneOS$IOS_BASE_SDK.sdk
   export CFLAGS="-arch armv7 -pipe -no-cpp-precomp -isysroot $SDKROOT -miphoneos-version-min=$IOS_DEPLOY_TGT -I$SDKROOT/usr/include/ -L$SDKROOT/usr/lib/" 
+  setenv_all
+}
+
+setenv_arm7s()
+{
+  unset DEVROOT SDKROOT CFLAGS CC LD CPP CXX AR AS NM CXXCPP RANLIB LDFLAGS CPPFLAGS CXXFLAGS
+  export DEVROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer
+  export SDKROOT=$DEVROOT/SDKs/iPhoneOS$IOS_BASE_SDK.sdk
+  export CFLAGS="-arch armv7s -pipe -no-cpp-precomp -isysroot $SDKROOT -miphoneos-version-min=$IOS_DEPLOY_TGT -I$SDKROOT/usr/include/ -L$SDKROOT/usr/lib/"
   setenv_all
 }
 
@@ -73,16 +73,19 @@ if [ "$uname" == 'Darwin' ]; then
   ./configure --prefix=$LIB_INSTALL_PATH/i386-libcurl --host=i386-apple-darwin $COMMON_CONFIGURE_OPTS
   make
   make install
-
-  setenv_arm6
-  ./configure --prefix=$LIB_INSTALL_PATH/arm6-libcurl --host=armv6-apple-darwin $COMMON_CONFIGURE_OPTS
-  make
-  make install
+  make clean
 
   setenv_arm7
   ./configure --prefix=$LIB_INSTALL_PATH/arm7-libcurl --host=armv7-apple-darwin $COMMON_CONFIGURE_OPTS
   make
   make install
+  make clean
+  
+  setenv_arm7s
+  ./configure --prefix=$LIB_INSTALL_PATH/arm7s-libcurl --host=armv7s-apple-darwin $COMMON_CONFIGURE_OPTS
+  make
+  make install
+  make clean
 fi
 
 # make
