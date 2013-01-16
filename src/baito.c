@@ -8,6 +8,15 @@ struct MemoryStruct {
   char *memory;
   size_t size;
 };
+
+struct SearchResultsResponse {
+  const char *searchTerm;
+  int success;
+  int count;
+  int skip;
+  double latitude;
+  double longitude;
+};
  
 static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
@@ -81,16 +90,24 @@ int jobs_search(char *searchTerm) {
   sprintf(apiUrl, api, parsedSearchTerm);
 
   char *response = get_data(curl_handle, apiUrl);
-  // puts(response);
-  
+
   JSON_Value *jsonValue = json_parse_string(response);
   JSON_Object *jsonObj = json_value_get_object(jsonValue);
-  printf("Search Term: %s\n", json_object_dotget_string(jsonObj, "SearchResultsResponse.searchTerm"));
-  printf("Success: %i\n", json_object_dotget_boolean(jsonObj, "SearchResultsResponse.success"));
-  printf("Count: %G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.count"));
-  printf("Skip: %G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.skip"));
-  printf("Latitude: %G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.latitude"));
-  printf("Longitude: %G\n", json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.longitude"));
+
+  struct SearchResultsResponse searchResultResponse;
+  searchResultResponse.searchTerm = json_object_dotget_string(jsonObj, "SearchResultsResponse.searchTerm");
+  searchResultResponse.success = json_object_dotget_boolean(jsonObj, "SearchResultsResponse.success");
+  searchResultResponse.count = json_object_dotget_number(jsonObj, "SearchResultsResponse.count");
+  searchResultResponse.skip = json_object_dotget_number(jsonObj, "SearchResultsResponse.skip");
+  searchResultResponse.latitude = json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.latitude");
+  searchResultResponse.longitude = json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.longitude");
+  
+  printf("Search Term: %s\n", searchResultResponse.searchTerm);
+  printf("Success: %i\n", searchResultResponse.success);
+  printf("Count: %i\n", searchResultResponse.count);
+  printf("Skip: %i\n", searchResultResponse.skip);
+  printf("Latitude: %G\n", searchResultResponse.latitude);
+  printf("Longitude: %G\n", searchResultResponse.longitude);
   
   if (response) free(response);
   put_curl_handle(curl_handle);
