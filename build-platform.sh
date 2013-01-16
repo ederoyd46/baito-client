@@ -7,23 +7,25 @@ CURL_VERSION=7.28.1
 IOS_BASE_SDK="6.0"
 IOS_DEPLOY_TGT="6.0"
 
+COMMON_CONFIGURE_OPTS=--disable-shared --enable-static --with-darwinssl --without-ssl --without-libssh2 --without-librtmp --without-libidn --without-ca-bundle --enable-http --disable-rtsp --disable-ftp --disable-file --disable-ldap --disable-ldaps --disable-dict --disable-telnet --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher
+
 setenv_all()
 {
-  # Add internal
+  # Don't seem to be need although were part of the original posting
   # export PATH="$DEVROOT/usr/bin:$PATH"
   # export CPP="$DEVROOT/usr/bin/cpp"
-  export CXX="$DEVROOT/usr/bin/g++"
   # export CXXCPP="$DEVROOT/usr/bin/cpp"
-  export CC="$DEVROOT/usr/bin/llvm-gcc-4.2"
   # export LD="$DEVROOT/usr/bin/ld"
   # export AR="$DEVROOT/usr/bin/ar"
   # export AS="$DEVROOT/usr/bin/as"
   # export NM="$DEVROOT/usr/bin/nm"
   # export RANLIB="$DEVROOT/usr/bin/ranlib"
-
-  export CFLAGS=$CFLAGS
   # export CPPFLAGS=$CFLAGS
   # export CXXFLAGS=$CFLAGS
+
+  export CC="$DEVROOT/usr/bin/gcc"
+  export CXX="$DEVROOT/usr/bin/g++"
+  export CFLAGS=$CFLAGS
   export LDFLAGS="$LDFLAGS"
 }
 
@@ -42,7 +44,6 @@ setenv_arm7()
   export DEVROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer
   export SDKROOT=$DEVROOT/SDKs/iPhoneOS$IOS_BASE_SDK.sdk
   export CFLAGS="-arch armv7 -pipe -no-cpp-precomp -isysroot $SDKROOT -miphoneos-version-min=$IOS_DEPLOY_TGT -I$SDKROOT/usr/include/ -L$SDKROOT/usr/lib/" 
-  export LDFLAGS=""
   setenv_all
 }
 
@@ -54,16 +55,36 @@ setenv_i386()
   export CFLAGS="-arch i386 -pipe -no-cpp-precomp -isysroot $SDKROOT -miphoneos-version-min=$IOS_DEPLOY_TGT"
   setenv_all
 }
-setenv_arm7
-
 mkdir -p $LIB_SRC_PATH $LIB_INSTALL_PATH
 
 cd $LIB_SRC_PATH
 curl -C - -O http://curl.haxx.se/download/curl-$CURL_VERSION.tar.bz2
 tar jxf curl-$CURL_VERSION.tar.bz2 
 
+
 cd curl-$CURL_VERSION
-./configure --prefix=$LIB_INSTALL_PATH/libcurl --host=armv7-apple-darwin --disable-shared --enable-static --with-darwinssl --without-ssl --without-libssh2 --without-librtmp --without-libidn --without-ca-bundle --enable-http --disable-rtsp --disable-ftp --disable-file --disable-ldap --disable-ldaps --disable-dict --disable-telnet --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher
+./configure --prefix=$LIB_INSTALL_PATH/host-libcurl 
+make
+make install
+
+
+if [ "$uname" == 'Darwin' ]; then
+  setenv_i386
+  ./configure --prefix=$LIB_INSTALL_PATH/i386-libcurl --host=i386-apple-darwin $COMMON_CONFIGURE_OPTS
+  make
+  make install
+
+  setenv_arm6
+  ./configure --prefix=$LIB_INSTALL_PATH/arm6-libcurl --host=armv6-apple-darwin $COMMON_CONFIGURE_OPTS
+  make
+  make install
+
+  setenv_arm7
+  ./configure --prefix=$LIB_INSTALL_PATH/arm7-libcurl --host=armv7-apple-darwin $COMMON_CONFIGURE_OPTS
+  make
+  make install
+fi
+
 # make
 # make install
 # 
