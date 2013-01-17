@@ -7,7 +7,7 @@ CURL_VERSION=7.28.1
 IOS_BASE_SDK="6.0"
 IOS_DEPLOY_TGT="6.0"
 
-COMMON_CONFIGURE_OPTS=--disable-shared --enable-static --with-darwinssl --without-ssl --without-libssh2 --without-librtmp --without-libidn --without-ca-bundle --enable-http --disable-rtsp --disable-ftp --disable-file --disable-ldap --disable-ldaps --disable-dict --disable-telnet --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher
+COMMON_CONFIGURE_OPTS="--disable-shared --enable-static --with-darwinssl --without-ssl --without-libssh2 --without-librtmp --without-libidn --without-ca-bundle --enable-http --disable-rtsp --disable-ftp --disable-file --disable-ldap --disable-ldaps --disable-dict --disable-telnet --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher"
 
 setenv_all()
 {
