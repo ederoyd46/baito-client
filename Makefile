@@ -3,7 +3,7 @@ BASE_DIR=$(shell pwd)
 SRC_DIR=$(BASE_DIR)/src
 BUILD_DIR=$(BASE_DIR)/build
 LIB_SRC_DIR=$(BASE_DIR)/tmp
-LIB_CURL=$(BASE_DIR)/lib/host-libcurl
+LIB_CURL=$(BASE_DIR)/lib/common-libcurl
 
 COPTS=-Wall -I$(LIB_CURL)/include/curl/
 LDOPTS=-framework CoreFoundation -framework Security -lz -lcurl -L$(LIB_CURL)/lib/
