@@ -12,7 +12,6 @@ COMMON_CONFIGURE_OPTS="--disable-shared --enable-static --with-darwinssl --witho
 setenv_all()
 {
   # Don't seem to be need although were part of the original posting
-  # export PATH="$DEVROOT/usr/bin:$PATH"
   # export CPP="$DEVROOT/usr/bin/cpp"
   # export CXXCPP="$DEVROOT/usr/bin/cpp"
   # export LD="$DEVROOT/usr/bin/ld"
