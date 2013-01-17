@@ -8,13 +8,19 @@ LIB_CURL=$(BASE_DIR)/lib/common-libcurl
 COPTS=-Wall -I$(LIB_CURL)/include/curl/
 LDOPTS=-framework CoreFoundation -framework Security -lz -lcurl -L$(LIB_CURL)/lib/
 
-baito-client : init $(SRC_DIR)/main.c $(SRC_DIR)/parson.c $(SRC_DIR)/baito.c
-	gcc $(COPTS) $(LDOPTS) -o $(BUILD_DIR)/baito-client $(SRC_DIR)/main.c $(SRC_DIR)/parson.c $(SRC_DIR)/baito.c
+LIB_INCLUDE=$(BUILD_DIR)/libbaito/include/baito 
+LIB_LIB=$(BUILD_DIR)/libbaito/lib
+
+baito-client : baito-lib $(SRC_DIR)/main.c
+	gcc $(COPTS) $(LDOPTS) -I$(LIB_INCLUDE) -L$(LIB_LIB) -lbaito -o $(BUILD_DIR)/baito-client $(SRC_DIR)/main.c
 
 baito-lib : init $(SRC_DIR)/parson.c $(SRC_DIR)/baito.c
+	mkdir -p $(LIB_INCLUDE) $(LIB_LIB)
+	cp $(SRC_DIR)/*.h $(LIB_INCLUDE)
+	
 	gcc -c $(COPTS) $(SRC_DIR)/baito.c -o $(BUILD_DIR)/baito.o
 	gcc -c $(COPTS) $(SRC_DIR)/parson.c -o $(BUILD_DIR)/parson.o
-	ar -rcs $(BUILD_DIR)/libbaito.a $(BUILD_DIR)/baito.o $(BUILD_DIR)/parson.o 
+	ar -rcs $(LIB_LIB)/libbaito.a $(BUILD_DIR)/baito.o $(BUILD_DIR)/parson.o 
 
 init: 
 	mkdir -p $(BUILD_DIR) $(LIB_SRC_DIR)
