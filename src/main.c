@@ -4,7 +4,7 @@
 
 int main(int argc, char * argv[])
 {
-  int res;
+  struct SearchResultsResponse res;
   int i;
 
   for (i=0; i<argc; i++) {
@@ -18,7 +18,7 @@ int main(int argc, char * argv[])
     res = jobs_search("pudsey");
   }
   
-  return res;
+  return 0;
 }
 
 

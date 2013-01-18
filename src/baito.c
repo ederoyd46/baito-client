@@ -3,21 +3,14 @@
 #include <stdlib.h>
 #include <curl.h>
 #include "parson.h"
+#include "baito.h"
 
 struct MemoryStruct {
   char *memory;
   size_t size;
 };
 
-struct SearchResultsResponse {
-  const char *searchTerm;
-  int success;
-  int count;
-  int skip;
-  double latitude;
-  double longitude;
-};
- 
+
 static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
   size_t realsize = size * nmemb;
@@ -56,7 +49,6 @@ static int put_curl_handle(CURL *curl_handle) {
   return 0;
 }
 
-
 static char* get_data(CURL *curl_handle, char *url) {
   CURLcode res;
 
@@ -78,9 +70,7 @@ static char* get_data(CURL *curl_handle, char *url) {
   return chunk.memory;
 }
 
-
-
-int jobs_search(char *searchTerm) {
+struct SearchResultsResponse jobs_search(char *searchTerm) {
   char *api = "https://baito.co.uk/api/search?searchTerm=%s";
   CURL *curl_handle = get_curl_handle();
 
@@ -101,17 +91,44 @@ int jobs_search(char *searchTerm) {
   searchResultResponse.skip = json_object_dotget_number(jsonObj, "SearchResultsResponse.skip");
   searchResultResponse.latitude = json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.latitude");
   searchResultResponse.longitude = json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.longitude");
-  
+
+  puts("-------------------------------------------------");
   printf("Search Term: %s\n", searchResultResponse.searchTerm);
   printf("Success: %i\n", searchResultResponse.success);
   printf("Count: %i\n", searchResultResponse.count);
   printf("Skip: %i\n", searchResultResponse.skip);
   printf("Latitude: %G\n", searchResultResponse.latitude);
   printf("Longitude: %G\n", searchResultResponse.longitude);
+  puts("-------------------------------------------------");
+
+  JSON_Array *jsonArray = json_object_dotget_array(jsonObj, "SearchResultsResponse.results");
+
+  if (jsonArray != NULL && json_array_get_count(jsonArray) > 1) {
+    struct JobSummary results[json_array_get_count(jsonArray)];
+    int i;
+    for (i = 0; i < json_array_get_count(jsonArray); i++) {
+      struct JobSummary result;
+      JSON_Object *record = json_array_get_object(jsonArray, i);
+      result.uuid = json_object_dotget_string(record, "JobSummary.uuid");
+      result.company = json_object_dotget_string(record, "JobSummary.company");
+      result.title = json_object_dotget_string(record, "JobSummary.title");
+      result.description = json_object_dotget_string(record, "JobSummary.description");
+      result.wage = json_object_dotget_number(record, "JobSummary.wage");
+      result.hours = json_object_dotget_number(record, "JobSummary.hours");
+      result.longitude = json_object_dotget_number(record, "JobSummary.longitude");
+      result.latitude = json_object_dotget_number(record, "JobSummary.latitude");
+      result.distance = json_object_dotget_number(record, "distance");
+      results[i] = result;
+    }
   
+   // searchResultResponse.results = malloc(sizeof results);  
+    searchResultResponse.results = results;
+  }
+
+
   if (response) free(response);
   put_curl_handle(curl_handle);
 
-  return 0;
+  return searchResultResponse;
 }
 
