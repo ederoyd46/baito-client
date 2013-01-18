@@ -22,6 +22,7 @@ struct SearchResultsResponse {
   double latitude;
   double longitude;
   struct JobSummary *results;
+   // struct JobSummary results[20];
 };
 
 struct SearchResultsResponse jobs_search(char *searchTerm);

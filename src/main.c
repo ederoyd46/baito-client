@@ -15,8 +15,25 @@ int main(int argc, char * argv[])
     char *searchTerm = argv[1];
     res = jobs_search(searchTerm);
   } else {
-    res = jobs_search("pudsey");
+    res = jobs_search("AL3 5PX");
   }
+  
+  puts("-------------------------------------------------");
+  printf("Search Term: %s\n", res.searchTerm);
+  printf("Success: %i\n", res.success);
+  printf("Count: %i\n", res.count);
+  printf("Skip: %i\n", res.skip);
+  printf("Latitude: %G\n", res.latitude);
+  printf("Longitude: %G\n", res.longitude);
+  puts("-------------------------------------------------");
+
+  printf("uuid: %s\n", res.results[0].uuid);
+
+  // for (i=0; i<res.count; i++) {
+  //   printf("uuid: %s\n", res.results[i].uuid);
+  // }
+  puts("-------------------------------------------------");
+  
   
   return 0;
 }

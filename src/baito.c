@@ -71,7 +71,7 @@ static char* get_data(CURL *curl_handle, char *url) {
 }
 
 struct SearchResultsResponse jobs_search(char *searchTerm) {
-  char *api = "https://baito.co.uk/api/search?searchTerm=%s";
+  char *api = "https://baito.co.uk/api/search?searchTerm=%s&limit=20";
   CURL *curl_handle = get_curl_handle();
 
   char *parsedSearchTerm = curl_easy_escape(curl_handle, searchTerm, strlen(searchTerm));
@@ -92,18 +92,8 @@ struct SearchResultsResponse jobs_search(char *searchTerm) {
   searchResultResponse.latitude = json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.latitude");
   searchResultResponse.longitude = json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.longitude");
 
-  puts("-------------------------------------------------");
-  printf("Search Term: %s\n", searchResultResponse.searchTerm);
-  printf("Success: %i\n", searchResultResponse.success);
-  printf("Count: %i\n", searchResultResponse.count);
-  printf("Skip: %i\n", searchResultResponse.skip);
-  printf("Latitude: %G\n", searchResultResponse.latitude);
-  printf("Longitude: %G\n", searchResultResponse.longitude);
-  puts("-------------------------------------------------");
-
   JSON_Array *jsonArray = json_object_dotget_array(jsonObj, "SearchResultsResponse.results");
-
-  if (jsonArray != NULL && json_array_get_count(jsonArray) > 1) {
+  if (jsonArray != NULL && json_array_get_count(jsonArray) > 0) {
     struct JobSummary results[json_array_get_count(jsonArray)];
     int i;
     for (i = 0; i < json_array_get_count(jsonArray); i++) {
@@ -113,15 +103,15 @@ struct SearchResultsResponse jobs_search(char *searchTerm) {
       result.company = json_object_dotget_string(record, "JobSummary.company");
       result.title = json_object_dotget_string(record, "JobSummary.title");
       result.description = json_object_dotget_string(record, "JobSummary.description");
+
       result.wage = json_object_dotget_number(record, "JobSummary.wage");
       result.hours = json_object_dotget_number(record, "JobSummary.hours");
       result.longitude = json_object_dotget_number(record, "JobSummary.longitude");
       result.latitude = json_object_dotget_number(record, "JobSummary.latitude");
       result.distance = json_object_dotget_number(record, "distance");
+      
       results[i] = result;
     }
-  
-   // searchResultResponse.results = malloc(sizeof results);  
     searchResultResponse.results = results;
   }
 
