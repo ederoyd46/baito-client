@@ -84,7 +84,7 @@ struct SearchResultsResponse jobs_search(char *searchTerm) {
   JSON_Value *jsonValue = json_parse_string(response);
   JSON_Object *jsonObj = json_value_get_object(jsonValue);
 
-  struct SearchResultsResponse searchResultResponse;
+  SearchResultsResponse searchResultResponse;
   searchResultResponse.searchTerm = json_object_dotget_string(jsonObj, "SearchResultsResponse.searchTerm");
   searchResultResponse.success = json_object_dotget_boolean(jsonObj, "SearchResultsResponse.success");
   searchResultResponse.count = json_object_dotget_number(jsonObj, "SearchResultsResponse.count");
@@ -94,25 +94,33 @@ struct SearchResultsResponse jobs_search(char *searchTerm) {
 
   JSON_Array *jsonArray = json_object_dotget_array(jsonObj, "SearchResultsResponse.results");
   if (jsonArray != NULL && json_array_get_count(jsonArray) > 0) {
-    struct JobSummary results[json_array_get_count(jsonArray)];
     int i;
+    searchResultResponse.results = calloc(json_array_get_count(jsonArray), sizeof(JobSummary));
     for (i = 0; i < json_array_get_count(jsonArray); i++) {
-      struct JobSummary result;
       JSON_Object *record = json_array_get_object(jsonArray, i);
-      result.uuid = json_object_dotget_string(record, "JobSummary.uuid");
-      result.company = json_object_dotget_string(record, "JobSummary.company");
-      result.title = json_object_dotget_string(record, "JobSummary.title");
-      result.description = json_object_dotget_string(record, "JobSummary.description");
-
-      result.wage = json_object_dotget_number(record, "JobSummary.wage");
-      result.hours = json_object_dotget_number(record, "JobSummary.hours");
-      result.longitude = json_object_dotget_number(record, "JobSummary.longitude");
-      result.latitude = json_object_dotget_number(record, "JobSummary.latitude");
-      result.distance = json_object_dotget_number(record, "distance");
       
-      results[i] = result;
+      const char *uuid = json_object_dotget_string(record, "job.JobSummary.uuid");
+      // searchResultResponse.results[i].uuid = malloc(strlen(uuid) +1);
+      searchResultResponse.results[i].uuid = uuid;
+
+      const char *company = json_object_dotget_string(record, "job.JobSummary.uuid");
+      // searchResultResponse.results[i].company = malloc(strlen(company) +1);
+      searchResultResponse.results[i].company = company;
+
+      const char *title = json_object_dotget_string(record, "job.JobSummary.title");
+      // searchResultResponse.results[i].title = malloc(strlen(title) +1);
+      searchResultResponse.results[i].title = title;
+
+      const char *description = json_object_dotget_string(record, "job.JobSummary.description");
+      // searchResultResponse.results[i].description = malloc(strlen(description) +1);
+      searchResultResponse.results[i].description = description;
+    
+      searchResultResponse.results[i].wage = json_object_dotget_number(record, "job.JobSummary.wage");
+      searchResultResponse.results[i].hours = json_object_dotget_number(record, "job.JobSummary.hours");
+      searchResultResponse.results[i].longitude = json_object_dotget_number(record, "job.JobSummary.location.longitude");
+      searchResultResponse.results[i].latitude = json_object_dotget_number(record, "job.JobSummary.location.latitude");
+      searchResultResponse.results[i].distance = json_object_dotget_number(record, "distance");
     }
-    searchResultResponse.results = results;
   }
 
 

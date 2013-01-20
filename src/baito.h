@@ -2,7 +2,7 @@
 // typedef struct JobSummary JobSummary;
 // typedef struct SearchResultsResponse SearchResultsResponse;
 
-struct JobSummary {
+typedef struct JobSummary {
   const char *uuid;
   const char *company;
   const char *title;
@@ -12,17 +12,17 @@ struct JobSummary {
   double longitude;
   double latitude;
   double distance;
-};
+} JobSummary;
 
-struct SearchResultsResponse {
+typedef struct SearchResultsResponse {
   const char *searchTerm;
   int success;
   int count;
   int skip;
   double latitude;
   double longitude;
-  struct JobSummary *results;
-   // struct JobSummary results[20];
-};
+  JobSummary *results;
+} SearchResultsResponse;
+
 
 struct SearchResultsResponse jobs_search(char *searchTerm);

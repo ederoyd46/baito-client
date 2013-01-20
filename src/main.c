@@ -27,11 +27,11 @@ int main(int argc, char * argv[])
   printf("Longitude: %G\n", res.longitude);
   puts("-------------------------------------------------");
 
-  printf("uuid: %s\n", res.results[0].uuid);
-
-  // for (i=0; i<res.count; i++) {
-  //   printf("uuid: %s\n", res.results[i].uuid);
-  // }
+  // printf("title: %s\n", res.firstResult.title);
+  // printf("test2: %s\n", res.test[0].text);
+  for (i=0; i<res.count; i++) {
+    printf("distance: %-5G uuid: %-40s company: %-40s title: %-40s\n", res.results[i].distance, res.results[i].uuid, res.results[i].company, res.results[i].title);
+  }
   puts("-------------------------------------------------");
   
   
