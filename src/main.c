@@ -32,7 +32,7 @@ int main(int argc, char * argv[])
   }
   puts("-------------------------------------------------");
   
-  
+  clear_job_search(res);
   return 0;
 }
 

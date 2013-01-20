@@ -70,7 +70,22 @@ static char* get_data(CURL *curl_handle, char *url) {
   return chunk.memory;
 }
 
-struct SearchResultsResponse jobs_search(char *searchTerm) {
+int clear_job_search(SearchResultsResponse searchResultsResponse) {
+  // int i;
+  // for (i=0; i<searchResultsResponse.count; i++) {
+  //   printf("About to free index %i\n", i);
+  //   free((char*)searchResultsResponse.results[i].description);
+  //   free((char*)searchResultsResponse.results[i].title);
+  //   // free((char*)searchResultsResponse.results[i].company);
+  //   free((char*)searchResultsResponse.results[i].uuid);
+  // }
+  free(searchResultsResponse.results);
+  free((char*)searchResultsResponse.searchTerm);
+  
+  return 0;
+}
+
+SearchResultsResponse jobs_search(char *searchTerm) {
   char *api = "https://baito.co.uk/api/search?searchTerm=%s&limit=20";
   CURL *curl_handle = get_curl_handle();
 
@@ -100,19 +115,19 @@ struct SearchResultsResponse jobs_search(char *searchTerm) {
       JSON_Object *record = json_array_get_object(jsonArray, i);
       
       const char *uuid = json_object_dotget_string(record, "job.JobSummary.uuid");
-      // searchResultResponse.results[i].uuid = malloc(strlen(uuid) +1);
+      // searchResultResponse.results[i].uuid = malloc(sizeof(uuid));
       searchResultResponse.results[i].uuid = uuid;
 
       const char *company = json_object_dotget_string(record, "job.JobSummary.uuid");
-      // searchResultResponse.results[i].company = malloc(strlen(company) +1);
+      // searchResultResponse.results[i].company = malloc(sizeof(company));
       searchResultResponse.results[i].company = company;
 
       const char *title = json_object_dotget_string(record, "job.JobSummary.title");
-      // searchResultResponse.results[i].title = malloc(strlen(title) +1);
+      // searchResultResponse.results[i].title = malloc(sizeof(title));
       searchResultResponse.results[i].title = title;
 
       const char *description = json_object_dotget_string(record, "job.JobSummary.description");
-      // searchResultResponse.results[i].description = malloc(strlen(description) +1);
+      // searchResultResponse.results[i].description = malloc(sizeof(description));
       searchResultResponse.results[i].description = description;
     
       searchResultResponse.results[i].wage = json_object_dotget_number(record, "job.JobSummary.wage");

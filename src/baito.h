@@ -26,3 +26,4 @@ typedef struct SearchResultsResponse {
 
 
 struct SearchResultsResponse jobs_search(char *searchTerm);
+int clear_job_search(SearchResultsResponse searchResultsResponse);
