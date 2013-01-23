@@ -63,17 +63,13 @@
 		32B5DC3016AFE33D00E59A47 = {
 			isa = PBXGroup;
 			children = (
-				32B5DC6716B00F0400E59A47 /* CoreFoundation.framework */,
-				32B5DC6416B00DB400E59A47 /* libcurl.a */,
-				32B5DC5D16B00BA300E59A47 /* libcurl.a */,
-				32B5DC5916B00B8800E59A47 /* libz.dylib */,
-				32B5DC5A16B00B8800E59A47 /* Security.framework */,
 				32B5DC3F16AFE39F00E59A47 /* main.c */,
 				32B5DC4416AFE3CC00E59A47 /* Baito */,
 				32B5DC4316AFE3B300E59A47 /* Parson */,
 				32B5DC4516AFE3FC00E59A47 /* Playground */,
 				32B5DC4D16AFF74F00E59A47 /* baito-client */,
 				32B5DC4B16AFF74E00E59A47 /* Products */,
+				32B5DC6916B0257600E59A47 /* Libraries */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,6 +114,18 @@
 				32B5DC5016AFF74F00E59A47 /* baito_client.1 */,
 			);
 			path = "baito-client";
+			sourceTree = "<group>";
+		};
+		32B5DC6916B0257600E59A47 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				32B5DC6716B00F0400E59A47 /* CoreFoundation.framework */,
+				32B5DC6416B00DB400E59A47 /* libcurl.a */,
+				32B5DC5D16B00BA300E59A47 /* libcurl.a */,
+				32B5DC5916B00B8800E59A47 /* libz.dylib */,
+				32B5DC5A16B00B8800E59A47 /* Security.framework */,
+			);
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

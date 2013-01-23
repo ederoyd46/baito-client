@@ -5,6 +5,10 @@
 #include "parson.h"
 #include "baito.h"
 
+
+//-Common ----------------------------------------------------------------------------------
+
+
 struct MemoryStruct {
   char *memory;
   size_t size;
@@ -70,31 +74,50 @@ static char* get_data(CURL *curl_handle, char *url) {
   return chunk.memory;
 }
 
-int clear_job_search(SearchResultsResponse searchResultsResponse) {
-  // int i;
-  // for (i=0; i<searchResultsResponse.count; i++) {
-  //   printf("About to free index %i\n", i);
-  //   free((char*)searchResultsResponse.results[i].description);
-  //   free((char*)searchResultsResponse.results[i].title);
-  //   // free((char*)searchResultsResponse.results[i].company);
-  //   free((char*)searchResultsResponse.results[i].uuid);
-  // }
-  free(searchResultsResponse.results);
-  free((char*)searchResultsResponse.searchTerm);
+//-Job Search ------------------------------------------------------------------------------
+
+SearchResultsResponse jobs_search_for_more(SearchResultsResponse existing) {
+  int skip = existing.count;
+  SearchResultsResponse new = jobs_search_full(existing.searchTerm, RESULT_LIMIT, skip);
+  int fullCount = existing.count + new.count;
+
+  SearchResultsResponse newResponse;
+  newResponse.success = new.success;
+  newResponse.count= fullCount;
+  newResponse.latitude = new.latitude;
+  newResponse.longitude = new.longitude;
+  newResponse.skip = new.skip;
+  newResponse.searchTerm = new.searchTerm;
+  newResponse.results = calloc(fullCount, sizeof(JobSummary));
   
-  return 0;
-}
+  int i = 0;
+  int x;
+  for (x=0; x<existing.count; x++) {
+    newResponse.results[i] = existing.results[x];
+    i++;
+  }
+  
+  for (x=0; x<new.count; x++) {
+    newResponse.results[i] = new.results[x];
+    i++;
+  }
 
-SearchResultsResponse jobs_search(char *searchTerm) {
-  char *api = "https://baito.co.uk/api/search?searchTerm=%s&limit=20";
+//  clear_job_search(new);
+  return newResponse;
+  
+};
+
+SearchResultsResponse jobs_search(const char *searchTerm) {
+  return jobs_search_full(searchTerm, RESULT_LIMIT, 0);
+};
+
+SearchResultsResponse jobs_search_full(const char *searchTerm, int limit, int skip) {
   CURL *curl_handle = get_curl_handle();
-
-  char *parsedSearchTerm = curl_easy_escape(curl_handle, searchTerm, strlen(searchTerm));
-
+  const char *api = "https://baito.co.uk/api/search?searchTerm=%s&limit=%i&skip=%i";
+  const char *parsedSearchTerm = curl_easy_escape(curl_handle, searchTerm, 0);
   char *apiUrl = malloc(strlen(api) + strlen(parsedSearchTerm) +1);
-  sprintf(apiUrl, api, parsedSearchTerm);
-
-  char *response = get_data(curl_handle, apiUrl);
+  sprintf(apiUrl, api, parsedSearchTerm, limit, skip);
+  const char *response = get_data(curl_handle, apiUrl);
 
   JSON_Value *jsonValue = json_parse_string(response);
   JSON_Object *jsonObj = json_value_get_object(jsonValue);
@@ -138,10 +161,22 @@ SearchResultsResponse jobs_search(char *searchTerm) {
     }
   }
 
-
-  if (response) free(response);
+  if (apiUrl) free(apiUrl);
+  if (jsonArray) free(jsonArray);
+  if (jsonObj) free(jsonObj);
   put_curl_handle(curl_handle);
 
   return searchResultResponse;
+};
+
+int clear_job_search(SearchResultsResponse searchResultsResponse) {
+  free(searchResultsResponse.results);
+  free((char*)searchResultsResponse.searchTerm);
+  return 0;
 }
+
+//-Job Info --------------------------------------------------------------------------------
+
+
+
 

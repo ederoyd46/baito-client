@@ -1,6 +1,5 @@
 // #include <curl.h>
-// typedef struct JobSummary JobSummary;
-// typedef struct SearchResultsResponse SearchResultsResponse;
+#define RESULT_LIMIT 20
 
 typedef struct JobSummary {
   const char *uuid;
@@ -24,6 +23,8 @@ typedef struct SearchResultsResponse {
   JobSummary *results;
 } SearchResultsResponse;
 
-
-struct SearchResultsResponse jobs_search(char *searchTerm);
+SearchResultsResponse jobs_search(const char *searchTerm);
+SearchResultsResponse jobs_search_full(const char *searchTerm, int limit, int skip);
+SearchResultsResponse jobs_search_for_more(SearchResultsResponse existingResults);
+  
 int clear_job_search(SearchResultsResponse searchResultsResponse);
