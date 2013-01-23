@@ -1,0 +1,106 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		32B5DC3C16AFE39F00E59A47 /* baito.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = baito.c; path = src/baito.c; sourceTree = "<group>"; };
+		32B5DC3D16AFE39F00E59A47 /* baito.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = baito.h; path = src/baito.h; sourceTree = "<group>"; };
+		32B5DC3E16AFE39F00E59A47 /* example.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = example.c; path = src/example.c; sourceTree = "<group>"; };
+		32B5DC3F16AFE39F00E59A47 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = main.c; path = src/main.c; sourceTree = "<group>"; };
+		32B5DC4016AFE39F00E59A47 /* parson.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = parson.c; path = src/parson.c; sourceTree = "<group>"; };
+		32B5DC4116AFE39F00E59A47 /* parson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = parson.h; path = src/parson.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		32B5DC3016AFE33D00E59A47 = {
+			isa = PBXGroup;
+			children = (
+				32B5DC3F16AFE39F00E59A47 /* main.c */,
+				32B5DC4416AFE3CC00E59A47 /* Baito */,
+				32B5DC4316AFE3B300E59A47 /* Parson */,
+				32B5DC4516AFE3FC00E59A47 /* Playground */,
+			);
+			sourceTree = "<group>";
+		};
+		32B5DC4316AFE3B300E59A47 /* Parson */ = {
+			isa = PBXGroup;
+			children = (
+				32B5DC4016AFE39F00E59A47 /* parson.c */,
+				32B5DC4116AFE39F00E59A47 /* parson.h */,
+			);
+			name = Parson;
+			sourceTree = "<group>";
+		};
+		32B5DC4416AFE3CC00E59A47 /* Baito */ = {
+			isa = PBXGroup;
+			children = (
+				32B5DC3C16AFE39F00E59A47 /* baito.c */,
+				32B5DC3D16AFE39F00E59A47 /* baito.h */,
+			);
+			name = Baito;
+			sourceTree = "<group>";
+		};
+		32B5DC4516AFE3FC00E59A47 /* Playground */ = {
+			isa = PBXGroup;
+			children = (
+				32B5DC3E16AFE39F00E59A47 /* example.c */,
+			);
+			name = Playground;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		32B5DC3216AFE33D00E59A47 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+			};
+			buildConfigurationList = 32B5DC3516AFE33D00E59A47 /* Build configuration list for PBXProject "Baito-Client" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 32B5DC3016AFE33D00E59A47;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		32B5DC3716AFE33D00E59A47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		32B5DC3816AFE33D00E59A47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		32B5DC3516AFE33D00E59A47 /* Build configuration list for PBXProject "Baito-Client" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32B5DC3716AFE33D00E59A47 /* Debug */,
+				32B5DC3816AFE33D00E59A47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 32B5DC3216AFE33D00E59A47 /* Project object */;
+}
