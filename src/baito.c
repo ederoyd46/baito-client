@@ -143,7 +143,7 @@ SearchResultsResponse jobs_search_full(const char *searchTerm, int limit, int sk
       // searchResultResponse.results[i].uuid = malloc(sizeof(uuid));
       searchResultResponse.results[i].uuid = uuid;
 
-      const char *company = json_object_dotget_string(record, "job.JobSummary.uuid");
+      const char *company = json_object_dotget_string(record, "job.JobSummary.company");
       // searchResultResponse.results[i].company = malloc(sizeof(company));
       searchResultResponse.results[i].company = company;
 
@@ -179,6 +179,40 @@ int clear_job_search(SearchResultsResponse searchResultsResponse) {
 
 //-Job Info --------------------------------------------------------------------------------
 
+JobResponse job_view(const char* jobid) {
+  CURL *curl_handle = get_curl_handle();
+  const char *api = "https://baito.co.uk/api/job/view?jobid=%s";
+  const char *parsedJobId = curl_easy_escape(curl_handle, jobid, 0);
+  char *apiUrl = malloc(strlen(api) + strlen(parsedJobId) +1);
+  sprintf(apiUrl, api, parsedJobId);
+  const char *response = get_data(curl_handle, apiUrl);
+
+  JSON_Value *jsonValue = json_parse_string(response);
+  JSON_Object *jsonObj = json_value_get_object(jsonValue);
+  JobResponse jobResponse;
+  jobResponse.success = json_object_dotget_boolean(jsonObj, "JobResponse.success");
+  
+  if (jobResponse.success == 1) {
+    Job job;
+    job.uuid = json_object_dotget_string(jsonObj, "JobResponse.job.Job.uuid");
+    job.company = json_object_dotget_string(jsonObj, "JobResponse.job.Job.company");
+    job.title = json_object_dotget_string(jsonObj, "JobResponse.job.Job.title");
+    job.description = json_object_dotget_string(jsonObj, "JobResponse.job.Job.description");
+    job.contactName = json_object_dotget_string(jsonObj, "JobResponse.job.Job.contactName");
+    job.contactEmail = json_object_dotget_string(jsonObj, "JobResponse.job.Job.contactEmail");
+    job.contactTelephone = json_object_dotget_string(jsonObj, "JobResponse.job.Job.contactTelephone");
+    job.address = json_object_dotget_string(jsonObj, "JobResponse.job.Job.address");
+    job.postalCode = json_object_dotget_string(jsonObj, "JobResponse.job.Job.postalCode");
+    job.wage = json_object_dotget_number(jsonObj, "JobResponse.job.Job.wage");
+    job.hours = json_object_dotget_number(jsonObj, "JobResponse.job.Job.hours");
+    job.longitude = json_object_dotget_number(jsonObj, "JobResponse.job.Job.location.longitude");
+    job.latitude = json_object_dotget_number(jsonObj, "JobResponse.job.Job.location.latitude");
+    jobResponse.job = job;
+  }
+  
+  return jobResponse;
+  
+}
 
 
 

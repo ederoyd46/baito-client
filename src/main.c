@@ -24,6 +24,31 @@ int printSearchResultResponse(SearchResultsResponse res) {
   return 0;
 };
 
+int printJobResponse(JobResponse res) {
+  puts("-------------------------------------------------");
+  printf("Success: \t\t %i\n", res.success);
+  if (res.success == 1) {
+    printf("UUID: \t\t\t %s\n", res.job.uuid);
+    printf("Title: \t\t\t %s\n", res.job.title);
+    printf("Company: \t\t %s\n", res.job.company);
+    printf("Contact Name: \t\t %s\n", res.job.contactName);
+    printf("Contact Email: \t\t %s\n", res.job.contactEmail);
+    printf("Contact Name: \t\t %s\n", res.job.contactName);
+    printf("Hours: \t\t\t %G\n", res.job.hours);
+    printf("Wage: \t\t\t %G\n", res.job.wage);
+    printf("Latitude: \t\t %G\n", res.job.latitude);
+    printf("Longitude: \t\t %G\n", res.job.longitude);
+    printf("Postal Code: \t\t %s\n", res.job.postalCode);
+    printf("Address: \n-------\n%s\n\n", res.job.address);
+    printf("Description: \n-----------\n%s\n\n", res.job.description);
+  }
+  
+  puts("-------------------------------------------------");
+  return 0;
+};
+
+
+
 int main(int argc, char * argv[])
 {
   if (argc == 1) {
@@ -65,6 +90,15 @@ int main(int argc, char * argv[])
     return 0;
   }
   
+  int job = strncmp("job", argv[1], strlen(argv[1]));
+  if (job == 0) {
+    if (!argv[2]) {
+      puts("Enter a term and a jobid");
+    }
+    const char *jobid = argv[2];
+    JobResponse res = job_view(jobid);
+    printJobResponse(res);
+  }
   
   
   return 0;
