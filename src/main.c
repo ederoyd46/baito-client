@@ -53,7 +53,6 @@ int main(int argc, char * argv[])
     char *searchTerm = argv[2];
     
     int repeat = (int) strtol(argv[3], NULL, 0);
-    printf("repeat %i\n",repeat);
     int i;
     
     SearchResultsResponse res = jobs_search(searchTerm);
@@ -61,11 +60,8 @@ int main(int argc, char * argv[])
     for (i=0; i<repeat; i++) {
       res = jobs_search_for_more(res);
     }
-//    
-//    SearchResultsResponse moreres = jobs_search_for_more(res);
     printSearchResultResponse(res);
-//    clear_job_search(res);
-//    clear_job_search(moreres);
+    clear_job_search(res);
     return 0;
   }
   

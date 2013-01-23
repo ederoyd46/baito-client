@@ -101,8 +101,10 @@ SearchResultsResponse jobs_search_for_more(SearchResultsResponse existing) {
     newResponse.results[i] = new.results[x];
     i++;
   }
-
-//  clear_job_search(new);
+  
+  free(existing.results);
+  free(new.results);
+  
   return newResponse;
   
 };
