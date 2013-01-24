@@ -172,8 +172,12 @@ SearchResultsResponse jobs_search_full(const char *searchTerm, int limit, int sk
 };
 
 int clear_job_search(SearchResultsResponse searchResultsResponse) {
-  free(searchResultsResponse.results);
-  free((char*)searchResultsResponse.searchTerm);
+  //Must read up on freeing const char's
+  
+  if (searchResultsResponse.count > 0) {
+    free(searchResultsResponse.results);
+  }
+  
   return 0;
 }
 
