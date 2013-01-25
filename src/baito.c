@@ -150,10 +150,6 @@ SearchResultsResponse jobs_search_full(const char *searchTerm, int limit, int sk
       const char *title = json_object_dotget_string(record, "job.JobSummary.title");
       // searchResultResponse.results[i].title = malloc(sizeof(title));
       searchResultResponse.results[i].title = title;
-
-      const char *description = json_object_dotget_string(record, "job.JobSummary.description");
-      // searchResultResponse.results[i].description = malloc(sizeof(description));
-      searchResultResponse.results[i].description = description;
     
       searchResultResponse.results[i].wage = json_object_dotget_number(record, "job.JobSummary.wage");
       searchResultResponse.results[i].hours = json_object_dotget_number(record, "job.JobSummary.hours");

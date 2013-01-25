@@ -5,7 +5,6 @@ typedef struct JobSummary {
   const char *uuid;
   const char *company;
   const char *title;
-  const char *description;
   double wage;
   double hours;
   double longitude;
