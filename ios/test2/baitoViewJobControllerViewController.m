@@ -86,17 +86,18 @@
   _postCodeLabel.text = [_jobData valueForKey:@"postCode"];
   _descriptionLabel.text = [_jobData valueForKey:@"description"];
 
+  if (!_map) {
+    _map = [[MKMapView alloc] initWithFrame:_mapView.bounds];
+    [_map setUserInteractionEnabled:NO];
+    [_mapView addSubview:_map];
+  }
   
-  _map = [[MKMapView alloc] initWithFrame:_mapView.bounds];
-  [_map setUserInteractionEnabled:NO];
   NSString *latitude = [_jobData valueForKey:@"latitude"];
   NSString *longitude = [_jobData valueForKey:@"longitude"];
-
   CLLocationCoordinate2D coord = { [latitude floatValue], [longitude floatValue] };
   MKCoordinateSpan span = {0.001, 0.001};
   MKCoordinateRegion region = {coord, span};
   [_map setRegion:region animated:YES];
-  [_mapView addSubview:_map];
   
   // Uncomment the following line to preserve selection between presentations.
   // self.clearsSelectionOnViewWillAppear = NO;

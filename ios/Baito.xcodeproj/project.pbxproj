@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3262F99616B310A900CCB419 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3262F99516B310A900CCB419 /* Default.png */; };
+		3262F99816B310AE00CCB419 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3262F99716B310AE00CCB419 /* Default@2x.png */; };
+		3262F99A16B310B400CCB419 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3262F99916B310B400CCB419 /* Default-568h@2x.png */; };
+		3262F99C16B310BC00CCB419 /* icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 3262F99B16B310BC00CCB419 /* icon_small.png */; };
+		3262F99E16B310C500CCB419 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3262F99D16B310C500CCB419 /* icon.png */; };
 		326652BF16B13F720083CDFF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 326652BE16B13F720083CDFF /* MapKit.framework */; };
 		326652C216B188780083CDFF /* baitoViewJobControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 326652C116B188780083CDFF /* baitoViewJobControllerViewController.m */; };
 		32B5DC1F16AEF24700E59A47 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC1D16AEF24700E59A47 /* libz.dylib */; };
@@ -19,14 +24,16 @@
 		32D1F69C16AEEA01006E4EFE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32D1F69A16AEEA01006E4EFE /* InfoPlist.strings */; };
 		32D1F69E16AEEA01006E4EFE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D1F69D16AEEA01006E4EFE /* main.m */; };
 		32D1F6A216AEEA01006E4EFE /* testAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D1F6A116AEEA01006E4EFE /* testAppDelegate.m */; };
-		32D1F6A416AEEA01006E4EFE /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D1F6A316AEEA01006E4EFE /* Default.png */; };
-		32D1F6A616AEEA01006E4EFE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D1F6A516AEEA01006E4EFE /* Default@2x.png */; };
-		32D1F6A816AEEA01006E4EFE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D1F6A716AEEA01006E4EFE /* Default-568h@2x.png */; };
 		32D1F6AB16AEEA01006E4EFE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D1F6A916AEEA01006E4EFE /* MainStoryboard.storyboard */; };
 		32D1F6AE16AEEA01006E4EFE /* testMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D1F6AD16AEEA01006E4EFE /* testMasterViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3262F99516B310A900CCB419 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		3262F99716B310AE00CCB419 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		3262F99916B310B400CCB419 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		3262F99B16B310BC00CCB419 /* icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_small.png; sourceTree = "<group>"; };
+		3262F99D16B310C500CCB419 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		326652BE16B13F720083CDFF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		326652C016B188780083CDFF /* baitoViewJobControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = baitoViewJobControllerViewController.h; sourceTree = "<group>"; };
 		326652C116B188780083CDFF /* baitoViewJobControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = baitoViewJobControllerViewController.m; sourceTree = "<group>"; };
@@ -44,9 +51,6 @@
 		32D1F69F16AEEA01006E4EFE /* Baito-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Baito-Prefix.pch"; sourceTree = "<group>"; };
 		32D1F6A016AEEA01006E4EFE /* testAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testAppDelegate.h; sourceTree = "<group>"; };
 		32D1F6A116AEEA01006E4EFE /* testAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testAppDelegate.m; sourceTree = "<group>"; };
-		32D1F6A316AEEA01006E4EFE /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		32D1F6A516AEEA01006E4EFE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		32D1F6A716AEEA01006E4EFE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		32D1F6AA16AEEA01006E4EFE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		32D1F6AC16AEEA01006E4EFE /* testMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testMasterViewController.h; sourceTree = "<group>"; };
 		32D1F6AD16AEEA01006E4EFE /* testMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testMasterViewController.m; sourceTree = "<group>"; };
@@ -83,6 +87,11 @@
 		32D1F68216AEEA01006E4EFE = {
 			isa = PBXGroup;
 			children = (
+				3262F99D16B310C500CCB419 /* icon.png */,
+				3262F99B16B310BC00CCB419 /* icon_small.png */,
+				3262F99916B310B400CCB419 /* Default-568h@2x.png */,
+				3262F99716B310AE00CCB419 /* Default@2x.png */,
+				3262F99516B310A900CCB419 /* Default.png */,
 				32D1F69716AEEA01006E4EFE /* baito */,
 				32D1F69016AEEA01006E4EFE /* Frameworks */,
 				32D1F68E16AEEA01006E4EFE /* Products */,
@@ -136,9 +145,6 @@
 				32D1F69A16AEEA01006E4EFE /* InfoPlist.strings */,
 				32D1F69D16AEEA01006E4EFE /* main.m */,
 				32D1F69F16AEEA01006E4EFE /* Baito-Prefix.pch */,
-				32D1F6A316AEEA01006E4EFE /* Default.png */,
-				32D1F6A516AEEA01006E4EFE /* Default@2x.png */,
-				32D1F6A716AEEA01006E4EFE /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -196,10 +202,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				32D1F69C16AEEA01006E4EFE /* InfoPlist.strings in Resources */,
-				32D1F6A416AEEA01006E4EFE /* Default.png in Resources */,
-				32D1F6A616AEEA01006E4EFE /* Default@2x.png in Resources */,
-				32D1F6A816AEEA01006E4EFE /* Default-568h@2x.png in Resources */,
 				32D1F6AB16AEEA01006E4EFE /* MainStoryboard.storyboard in Resources */,
+				3262F99616B310A900CCB419 /* Default.png in Resources */,
+				3262F99816B310AE00CCB419 /* Default@2x.png in Resources */,
+				3262F99A16B310B400CCB419 /* Default-568h@2x.png in Resources */,
+				3262F99C16B310BC00CCB419 /* icon_small.png in Resources */,
+				3262F99E16B310C500CCB419 /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
