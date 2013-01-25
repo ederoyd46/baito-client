@@ -52,7 +52,7 @@ int printJobResponse(JobResponse res) {
 int main(int argc, char * argv[])
 {
   if (argc == 1) {
-    printf("Usage\nsearch [term]\nsearchmore [term]\n");
+    printf("Usage\nsearch [term]\nsearchmore [term]\njob [jobid]\n");
     return 0;
   }
 
