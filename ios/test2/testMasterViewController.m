@@ -7,8 +7,7 @@
 //
 
 #import "testMasterViewController.h"
-
-#import "testDetailViewController.h"
+#import "baitoViewJobControllerViewController.h"
 #import <baito.h>
 
 @interface testMasterViewController () {
@@ -98,6 +97,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+
   if ([[segue identifier] isEqualToString:@"showDetail"]) {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     NSDictionary *object = _objects[indexPath.row];

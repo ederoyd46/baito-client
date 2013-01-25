@@ -7,20 +7,24 @@
 //
 
 #import "baitoViewJobControllerViewController.h"
+#import <baito.h>
 
-@interface baitoViewJobControllerViewController ()
+@interface baitoViewJobControllerViewController () {
+  NSDictionary *_jobData;
+}
 - (void)configureView;
 @end
+
 
 @implementation baitoViewJobControllerViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+  self = [super initWithStyle:style];
+  if (self) {
+    // Custom initialization
+  }
+  return self;
 }
 
 
@@ -36,74 +40,97 @@
 
 - (void)configureView
 {
-//  UIApplication *application = [UIApplication sharedApplication];
-//  
-//  if (self.detailItem) {
-//    NSString *uuid = self.detailItem;
-//    
-//    application.networkActivityIndicatorVisible = YES;
-//    JobResponse res = job_view([uuid cStringUsingEncoding:NSUTF8StringEncoding]);
-//    application.networkActivityIndicatorVisible = NO;
-//    
-//    if (res.success == 0) {
-//      _descriptionLabel.text = @"Loading Failed";
-//      return;
-//    }
-//    
-//    _titleLabel.text = [NSString stringWithCString:res.job.title encoding:NSUTF8StringEncoding];
-//    _wageLabel.text = [NSString stringWithFormat:@"%G",res.job.wage];
-//    _hoursLabel.text = [NSString stringWithFormat:@"%G",res.job.hours];
-//    _companyLabel.text = [NSString stringWithCString:res.job.company encoding:NSUTF8StringEncoding];
-//    _contactLabel.text = [NSString stringWithCString:res.job.contactName encoding:NSUTF8StringEncoding];
-//    _emailLabel.text = [NSString stringWithCString:res.job.contactEmail encoding:NSUTF8StringEncoding];
-//    _phoneLabel.text = [NSString stringWithCString:res.job.contactTelephone encoding:NSUTF8StringEncoding];
-//    _descriptionLabel.text = [NSString stringWithCString:res.job.description encoding:NSUTF8StringEncoding];
-//    
-//    //    [_mapView ]
-//    
-//    
-//  }
+  UIApplication *application = [UIApplication sharedApplication];
+  application.networkActivityIndicatorVisible = YES;
+
+  if (self.detailItem) {
+    NSString *uuid = self.detailItem;
+
+    JobResponse res = job_view([uuid cStringUsingEncoding:NSUTF8StringEncoding]);
+
+    if (res.success == 0) {
+      return;
+    }
+
+    NSDictionary *data = @{
+      @"title" : [NSString stringWithCString:res.job.title encoding:NSUTF8StringEncoding],
+      @"wage" : [NSString stringWithFormat:@"%G",res.job.wage],
+      @"hours" : [NSString stringWithFormat:@"%G",res.job.hours],
+      @"company" : [NSString stringWithCString:res.job.company encoding:NSUTF8StringEncoding],
+      @"contact" : [NSString stringWithCString:res.job.contactName encoding:NSUTF8StringEncoding],
+      @"email" : [NSString stringWithCString:res.job.contactEmail encoding:NSUTF8StringEncoding],
+      @"phone" : [NSString stringWithCString:res.job.contactTelephone encoding:NSUTF8StringEncoding],
+      @"postCode" : [NSString stringWithCString:res.job.postalCode encoding:NSUTF8StringEncoding],
+      @"description" : [NSString stringWithCString:res.job.description encoding:NSUTF8StringEncoding],
+      @"latitude" : [NSString stringWithFormat:@"%G",res.job.latitude],
+      @"longitude" : [NSString stringWithFormat:@"%G",res.job.longitude],
+    };
+    _jobData = data;
+  }
+  
+  application.networkActivityIndicatorVisible = NO;
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+  [super viewDidLoad];
+  
+  _titleLabel.text = [_jobData valueForKey:@"title"];
+  _hoursLabel.text = [_jobData valueForKey:@"hours"];
+  _wageLabel.text = [_jobData valueForKey:@"wage"];
+  _companyLabel.text = [_jobData valueForKey:@"company"];
+  _contactLabel.text = [_jobData valueForKey:@"contact"];
+  _emailLabel.text = [_jobData valueForKey:@"email"];
+  _phoneLabel.text = [_jobData valueForKey:@"phone"];
+  _postCodeLabel.text = [_jobData valueForKey:@"postCode"];
+  _descriptionLabel.text = [_jobData valueForKey:@"description"];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+//  
+//  struct CGPoint point;
+//  point.x = [latitude floatValue];
+//  point.y = [longitude floatValue];
+//  [_mapView setCenter:point];
+//  [_mapView ]
+  
+  // Uncomment the following line to preserve selection between presentations.
+  // self.clearsSelectionOnViewWillAppear = NO;
+  
+  // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+  // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
+}
+
+- (void)mapViewWillStartLoadingMap:(MKMapView *)mapView {
+  NSLog(@"mapViewWillStartLoadingMap called");
+  
+  NSString *latitude = [_jobData valueForKey:@"latitude"];
+  NSString *longitude = [_jobData valueForKey:@"longitude"];
+  
+  
+  CLLocationCoordinate2D coord = { [latitude floatValue], [longitude floatValue] };
+  MKCoordinateSpan span = {0.001, 0.001};
+  MKCoordinateRegion region = {coord, span};
+  
+  [_mapView setRegion:region animated:NO];
+  
+}
+
+
+- (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated {
+  NSLog(@"didChangeUserTrackingMode called");
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+  // Return the number of sections.
+//  return 2;
+//}
 
 @end

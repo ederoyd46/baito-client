@@ -24,7 +24,6 @@
 		32D1F6A816AEEA01006E4EFE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D1F6A716AEEA01006E4EFE /* Default-568h@2x.png */; };
 		32D1F6AB16AEEA01006E4EFE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D1F6A916AEEA01006E4EFE /* MainStoryboard.storyboard */; };
 		32D1F6AE16AEEA01006E4EFE /* testMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D1F6AD16AEEA01006E4EFE /* testMasterViewController.m */; };
-		32D1F6B116AEEA01006E4EFE /* testDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D1F6B016AEEA01006E4EFE /* testDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,8 +50,6 @@
 		32D1F6AA16AEEA01006E4EFE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		32D1F6AC16AEEA01006E4EFE /* testMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testMasterViewController.h; sourceTree = "<group>"; };
 		32D1F6AD16AEEA01006E4EFE /* testMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testMasterViewController.m; sourceTree = "<group>"; };
-		32D1F6AF16AEEA01006E4EFE /* testDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testDetailViewController.h; sourceTree = "<group>"; };
-		32D1F6B016AEEA01006E4EFE /* testDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,8 +122,6 @@
 				32D1F6A916AEEA01006E4EFE /* MainStoryboard.storyboard */,
 				32D1F6AC16AEEA01006E4EFE /* testMasterViewController.h */,
 				32D1F6AD16AEEA01006E4EFE /* testMasterViewController.m */,
-				32D1F6AF16AEEA01006E4EFE /* testDetailViewController.h */,
-				32D1F6B016AEEA01006E4EFE /* testDetailViewController.m */,
 				32D1F69816AEEA01006E4EFE /* Supporting Files */,
 				326652C316B188BE0083CDFF /* Job */,
 			);
@@ -218,7 +213,6 @@
 				32D1F69E16AEEA01006E4EFE /* main.m in Sources */,
 				32D1F6A216AEEA01006E4EFE /* testAppDelegate.m in Sources */,
 				32D1F6AE16AEEA01006E4EFE /* testMasterViewController.m in Sources */,
-				32D1F6B116AEEA01006E4EFE /* testDetailViewController.m in Sources */,
 				326652C216B188780083CDFF /* baitoViewJobControllerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
