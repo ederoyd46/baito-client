@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface baitoViewJobControllerViewController : UITableViewController<MKMapViewDelegate>
+@interface baitoViewJobControllerViewController : UITableViewController
 
 @property (strong, nonatomic) id detailItem;
 
@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *postCodeLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionLabel;
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UITableViewCell *mapView;
 
 
 @end

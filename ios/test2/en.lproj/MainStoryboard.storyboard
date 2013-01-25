@@ -306,27 +306,14 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Map" id="LPg-1D-97f" userLabel="Table View Section - Map">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="225" id="SPv-hv-rel">
-                                        <rect key="frame" x="0.0" y="586" width="320" height="225"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="152" id="SPv-hv-rel">
+                                        <rect key="frame" x="0.0" y="586" width="320" height="152"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="224"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="151"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="M4T-zP-ca0">
-                                                    <connections>
-                                                        <outlet property="delegate" destination="fGb-2n-W8n" id="CO0-hE-WoJ"/>
-                                                    </connections>
-                                                </mapView>
-                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <constraints>
-                                            <constraint firstItem="M4T-zP-ca0" firstAttribute="trailing" secondItem="SPv-hv-rel" secondAttribute="trailing" type="default" id="CaY-Ps-cs5"/>
-                                            <constraint firstItem="M4T-zP-ca0" firstAttribute="centerY" secondItem="SPv-hv-rel" secondAttribute="centerY" type="default" id="Hxd-gG-9s7"/>
-                                            <constraint firstItem="M4T-zP-ca0" firstAttribute="leading" secondItem="SPv-hv-rel" secondAttribute="leading" type="default" id="hyV-42-blA"/>
-                                            <constraint firstItem="M4T-zP-ca0" firstAttribute="top" secondItem="SPv-hv-rel" secondAttribute="top" type="default" id="wKu-5f-jgO"/>
-                                        </constraints>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -343,7 +330,7 @@
                         <outlet property="descriptionLabel" destination="XPX-JC-wf0" id="fmb-Fp-Z2Z"/>
                         <outlet property="emailLabel" destination="wiT-RC-JLi" id="l07-j3-ZW3"/>
                         <outlet property="hoursLabel" destination="WKp-ew-PYA" id="1ra-0G-7yS"/>
-                        <outlet property="mapView" destination="M4T-zP-ca0" id="vP8-V6-dQJ"/>
+                        <outlet property="mapView" destination="SPv-hv-rel" id="HhW-WH-GXv"/>
                         <outlet property="phoneLabel" destination="LBc-gb-2Il" id="xh1-hV-cM0"/>
                         <outlet property="postCodeLabel" destination="cNH-hR-sfz" id="Nw9-Kr-g6M"/>
                         <outlet property="titleLabel" destination="v3J-d8-96N" id="4MK-u9-9mY"/>
@@ -367,7 +354,7 @@
                 <relationship kind="outlet" name="descriptionLabel" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="hoursLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="mapView" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="phoneLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="postCodeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>

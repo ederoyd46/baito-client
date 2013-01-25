@@ -11,6 +11,7 @@
 
 @interface baitoViewJobControllerViewController () {
   NSDictionary *_jobData;
+  MKMapView *_map;
 }
 - (void)configureView;
 @end
@@ -85,12 +86,17 @@
   _postCodeLabel.text = [_jobData valueForKey:@"postCode"];
   _descriptionLabel.text = [_jobData valueForKey:@"description"];
 
-//  
-//  struct CGPoint point;
-//  point.x = [latitude floatValue];
-//  point.y = [longitude floatValue];
-//  [_mapView setCenter:point];
-//  [_mapView ]
+  
+  _map = [[MKMapView alloc] initWithFrame:_mapView.bounds];
+  [_map setUserInteractionEnabled:NO];
+  NSString *latitude = [_jobData valueForKey:@"latitude"];
+  NSString *longitude = [_jobData valueForKey:@"longitude"];
+
+  CLLocationCoordinate2D coord = { [latitude floatValue], [longitude floatValue] };
+  MKCoordinateSpan span = {0.001, 0.001};
+  MKCoordinateRegion region = {coord, span};
+  [_map setRegion:region animated:YES];
+  [_mapView addSubview:_map];
   
   // Uncomment the following line to preserve selection between presentations.
   // self.clearsSelectionOnViewWillAppear = NO;
@@ -105,25 +111,25 @@
   // Dispose of any resources that can be recreated.
 }
 
-- (void)mapViewWillStartLoadingMap:(MKMapView *)mapView {
-  NSLog(@"mapViewWillStartLoadingMap called");
-  
-  NSString *latitude = [_jobData valueForKey:@"latitude"];
-  NSString *longitude = [_jobData valueForKey:@"longitude"];
-  
-  
-  CLLocationCoordinate2D coord = { [latitude floatValue], [longitude floatValue] };
-  MKCoordinateSpan span = {0.001, 0.001};
-  MKCoordinateRegion region = {coord, span};
-  
-  [_mapView setRegion:region animated:NO];
-  
-}
-
-
-- (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated {
-  NSLog(@"didChangeUserTrackingMode called");
-}
+//- (void)mapViewWillStartLoadingMap:(MKMapView *)mapView {
+//  NSLog(@"mapViewWillStartLoadingMap called");
+//  
+//  NSString *latitude = [_jobData valueForKey:@"latitude"];
+//  NSString *longitude = [_jobData valueForKey:@"longitude"];
+//  
+//  
+//  CLLocationCoordinate2D coord = { [latitude floatValue], [longitude floatValue] };
+//  MKCoordinateSpan span = {0.001, 0.001};
+//  MKCoordinateRegion region = {coord, span};
+//  
+//  [_mapView setRegion:region animated:NO];
+//  
+//}
+//
+//
+//- (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated {
+//  NSLog(@"didChangeUserTrackingMode called");
+//}
 
 #pragma mark - Table view data source
 
