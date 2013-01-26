@@ -99,6 +99,9 @@
   MKCoordinateRegion region = {coord, span};
   [_map setRegion:region animated:YES];
   
+  MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coord addressDictionary:nil];
+  [_map addAnnotation:placemark];
+  
   // Uncomment the following line to preserve selection between presentations.
   // self.clearsSelectionOnViewWillAppear = NO;
   
