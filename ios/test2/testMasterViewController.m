@@ -74,8 +74,8 @@ CLLocation *_currentLocation;
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-  [self runSearch:NO];
   [searchBar resignFirstResponder];
+  [self runSearch:NO];
 }
 
 
