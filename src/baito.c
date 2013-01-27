@@ -138,7 +138,7 @@ SearchResultsResponse jobs_search_full(const char *searchTerm, const double lati
     printf("search by term: %s limit: %i, skip: %i\nurl: %s\n", searchTerm, limit, skip, apiUrl);
   } else {
     if (latitude != 0 && longitude != 0) {
-      const char *searchLocationApi = "https://baito.co.uk/api/search?latitude=%G&longitude=%G&limit=%i&skip=%i";
+      const char *searchLocationApi = "https://baito.co.uk/api/search?searchLatitude=%G&searchLongitude=%G&limit=%i&skip=%i";
       apiUrl = malloc(strlen(searchLocationApi) + sizeof(latitude) + sizeof(longitude) +1);
       sprintf(apiUrl, searchLocationApi, latitude, longitude, limit, skip);
       printf("search by latitude: %G longitude: %G limit: %i skip: %i\nurl: %s\n", latitude, longitude, limit, skip, apiUrl);
