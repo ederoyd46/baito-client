@@ -44,7 +44,8 @@ typedef struct JobResponse {
 } JobResponse;
 
 SearchResultsResponse jobs_search(const char *searchTerm);
-SearchResultsResponse jobs_search_full(const char *searchTerm, int limit, int skip);
+SearchResultsResponse jobs_direct_search(const double latitude, const double longitude);
+SearchResultsResponse jobs_search_full(const char *searchTerm, const double latitude, const double longitude, int limit, int skip);
 SearchResultsResponse jobs_search_for_more(SearchResultsResponse existingResults);
 int clear_job_search(SearchResultsResponse searchResultsResponse);
 

@@ -78,7 +78,14 @@ static char* get_data(CURL *curl_handle, char *url) {
 
 SearchResultsResponse jobs_search_for_more(SearchResultsResponse existing) {
   int skip = existing.count;
-  SearchResultsResponse new = jobs_search_full(existing.searchTerm, RESULT_LIMIT, skip);
+  
+  SearchResultsResponse new;
+  if (existing.searchTerm != NULL) {
+    new = jobs_search_full(existing.searchTerm, 0, 0, RESULT_LIMIT, skip);
+  } else {
+    new = jobs_search_full(NULL, existing.latitude, existing.longitude, RESULT_LIMIT, skip);
+  }
+  
   int fullCount = existing.count + new.count;
 
   SearchResultsResponse newResponse;
@@ -109,18 +116,36 @@ SearchResultsResponse jobs_search_for_more(SearchResultsResponse existing) {
   
 };
 
-SearchResultsResponse jobs_search(const char *searchTerm) {
-  return jobs_search_full(searchTerm, RESULT_LIMIT, 0);
+SearchResultsResponse jobs_direct_search(const double latitude, const double longitude) {
+  return jobs_search_full(NULL, latitude, longitude, RESULT_LIMIT, 0);
 };
 
-SearchResultsResponse jobs_search_full(const char *searchTerm, int limit, int skip) {
-  CURL *curl_handle = get_curl_handle();
-  const char *api = "https://baito.co.uk/api/search?searchTerm=%s&limit=%i&skip=%i";
-  const char *parsedSearchTerm = curl_easy_escape(curl_handle, searchTerm, 0);
-  char *apiUrl = malloc(strlen(api) + strlen(parsedSearchTerm) +1);
-  sprintf(apiUrl, api, parsedSearchTerm, limit, skip);
-  const char *response = get_data(curl_handle, apiUrl);
 
+SearchResultsResponse jobs_search(const char *searchTerm) {
+  return jobs_search_full(searchTerm, 0, 0, RESULT_LIMIT, 0);
+};
+
+SearchResultsResponse jobs_search_full(const char *searchTerm, const double latitude, const double longitude, int limit, int skip) {
+  CURL *curl_handle = get_curl_handle();
+  
+  char *apiUrl;
+  
+  if (searchTerm != NULL) {
+    const char *searchTermApi = "https://baito.co.uk/api/search?searchTerm=%s&limit=%i&skip=%i";
+    const char *parsedSearchTerm = curl_easy_escape(curl_handle, searchTerm, 0);
+    apiUrl = malloc(strlen(searchTermApi) + strlen(parsedSearchTerm) +1);
+    sprintf(apiUrl, searchTermApi, parsedSearchTerm, limit, skip);
+    printf("search by term: %s limit: %i, skip: %i\nurl: %s\n", searchTerm, limit, skip, apiUrl);
+  } else {
+    if (latitude != 0 && longitude != 0) {
+      const char *searchLocationApi = "https://baito.co.uk/api/search?latitude=%G&longitude=%G&limit=%i&skip=%i";
+      apiUrl = malloc(strlen(searchLocationApi) + sizeof(latitude) + sizeof(longitude) +1);
+      sprintf(apiUrl, searchLocationApi, latitude, longitude, limit, skip);
+      printf("search by latitude: %G longitude: %G limit: %i skip: %i\nurl: %s\n", latitude, longitude, limit, skip, apiUrl);
+    }
+  }
+  
+  const char *response = get_data(curl_handle, apiUrl);
   JSON_Value *jsonValue = json_parse_string(response);
   JSON_Object *jsonObj = json_value_get_object(jsonValue);
 
