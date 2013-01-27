@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface testMasterViewController : UITableViewController <UISearchBarDelegate>
+
+@interface testMasterViewController : UITableViewController <UISearchBarDelegate, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchTerm;
 

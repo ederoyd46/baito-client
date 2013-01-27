@@ -12,6 +12,7 @@
 		3262F99A16B310B400CCB419 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3262F99916B310B400CCB419 /* Default-568h@2x.png */; };
 		3262F99C16B310BC00CCB419 /* icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 3262F99B16B310BC00CCB419 /* icon_small.png */; };
 		3262F99E16B310C500CCB419 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3262F99D16B310C500CCB419 /* icon.png */; };
+		3262F9A116B4400500CCB419 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3262F9A016B4400500CCB419 /* CoreLocation.framework */; };
 		326652BF16B13F720083CDFF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 326652BE16B13F720083CDFF /* MapKit.framework */; };
 		326652C216B188780083CDFF /* baitoViewJobControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 326652C116B188780083CDFF /* baitoViewJobControllerViewController.m */; };
 		32B5DC1F16AEF24700E59A47 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC1D16AEF24700E59A47 /* libz.dylib */; };
@@ -29,11 +30,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3262F99516B310A900CCB419 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		3262F99716B310AE00CCB419 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		3262F99916B310B400CCB419 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		3262F99B16B310BC00CCB419 /* icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_small.png; sourceTree = "<group>"; };
-		3262F99D16B310C500CCB419 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		3262F99516B310A900CCB419 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
+		3262F99716B310AE00CCB419 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
+		3262F99916B310B400CCB419 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		3262F99B16B310BC00CCB419 /* icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_small.png; path = ../icon_small.png; sourceTree = "<group>"; };
+		3262F99D16B310C500CCB419 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../icon.png; sourceTree = "<group>"; };
+		3262F9A016B4400500CCB419 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		326652BE16B13F720083CDFF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		326652C016B188780083CDFF /* baitoViewJobControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = baitoViewJobControllerViewController.h; sourceTree = "<group>"; };
 		326652C116B188780083CDFF /* baitoViewJobControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = baitoViewJobControllerViewController.m; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3262F9A116B4400500CCB419 /* CoreLocation.framework in Frameworks */,
 				326652BF16B13F720083CDFF /* MapKit.framework in Frameworks */,
 				32B5DC2516AEF6F800E59A47 /* libcurl.a in Frameworks */,
 				32B5DC2316AEF27C00E59A47 /* libbaito.a in Frameworks */,
@@ -87,11 +90,6 @@
 		32D1F68216AEEA01006E4EFE = {
 			isa = PBXGroup;
 			children = (
-				3262F99D16B310C500CCB419 /* icon.png */,
-				3262F99B16B310BC00CCB419 /* icon_small.png */,
-				3262F99916B310B400CCB419 /* Default-568h@2x.png */,
-				3262F99716B310AE00CCB419 /* Default@2x.png */,
-				3262F99516B310A900CCB419 /* Default.png */,
 				32D1F69716AEEA01006E4EFE /* baito */,
 				32D1F69016AEEA01006E4EFE /* Frameworks */,
 				32D1F68E16AEEA01006E4EFE /* Products */,
@@ -114,6 +112,7 @@
 				32B5DC2416AEF6F800E59A47 /* libcurl.a */,
 				32B5DC2216AEF27C00E59A47 /* libbaito.a */,
 				32B5DC1D16AEF24700E59A47 /* libz.dylib */,
+				3262F9A016B4400500CCB419 /* CoreLocation.framework */,
 				326652BE16B13F720083CDFF /* MapKit.framework */,
 				32B5DC1E16AEF24700E59A47 /* Security.framework */,
 				32D1F69116AEEA01006E4EFE /* UIKit.framework */,
@@ -141,6 +140,11 @@
 		32D1F69816AEEA01006E4EFE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3262F99D16B310C500CCB419 /* icon.png */,
+				3262F99B16B310BC00CCB419 /* icon_small.png */,
+				3262F99916B310B400CCB419 /* Default-568h@2x.png */,
+				3262F99716B310AE00CCB419 /* Default@2x.png */,
+				3262F99516B310A900CCB419 /* Default.png */,
 				32D1F69916AEEA01006E4EFE /* Baito-Info.plist */,
 				32D1F69A16AEEA01006E4EFE /* InfoPlist.strings */,
 				32D1F69D16AEEA01006E4EFE /* main.m */,
@@ -304,12 +308,14 @@
 				GCC_PREFIX_HEADER = "test2/Baito-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../Baito-Client/build/common-libbaito/include/baito\"";
 				INFOPLIST_FILE = "test2/Baito-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../Baito-Client/build/common-libbaito/lib\"",
 					"\"$(SRCROOT)/../../Baito-Client/lib/common-libcurl/lib\"",
 				);
 				PRODUCT_NAME = Baito;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -321,12 +327,14 @@
 				GCC_PREFIX_HEADER = "test2/Baito-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../Baito-Client/build/common-libbaito/include/baito\"";
 				INFOPLIST_FILE = "test2/Baito-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../Baito-Client/build/common-libbaito/lib\"",
 					"\"$(SRCROOT)/../../Baito-Client/lib/common-libcurl/lib\"",
 				);
 				PRODUCT_NAME = Baito;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -10,12 +10,11 @@
 #import "baitoViewJobControllerViewController.h"
 #import <baito.h>
 
-@interface testMasterViewController () {
-  NSMutableArray *_objects;
-}
-@end
-
 @implementation testMasterViewController
+
+NSMutableArray *_objects;
+CLLocationManager *_locationManager;
+CLLocation *_currentLocation;
 
 - (void)awakeFromNib
 {
@@ -27,8 +26,8 @@
   [super viewDidLoad];
   //    self.navigationItem.leftBarButtonItem = self.editButtonItem;
   
-  //    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-  //    self.navigationItem.rightBarButtonItem = addButton;
+  UIBarButtonItem *currentButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(currentLocationSearchButtonClicked:)];
+      self.navigationItem.rightBarButtonItem = currentButton;
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,21 +35,41 @@
   [super didReceiveMemoryWarning];
 }
 
+-(void)currentLocationSearchButtonClicked:(UIBarButtonItem *)currentSearchButton
+{
+  if (!_locationManager) {
+    _locationManager = [[CLLocationManager alloc] init];
+    _locationManager.delegate = self;
+  }
+
+  [_locationManager startMonitoringSignificantLocationChanges];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+  for (CLLocation *location in locations) {
+    _currentLocation = location;
+    NSLog(@"async lat: %f lon: %f", location.coordinate.latitude, location.coordinate.longitude);
+  }
+}
+
+
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
   UIApplication *application = [UIApplication sharedApplication];
   application.networkActivityIndicatorVisible = YES;
-  
+
   if (!_objects) {
     _objects = [[NSMutableArray alloc] init];
   }
-  
-  [_objects removeAllObjects];
 
-  if (_searchTerm.text.length > 0) {
-    
-    const char *term = [_searchTerm.text cStringUsingEncoding:NSUTF8StringEncoding];
-    
+//  __block NSMutableArray *newresults = [[NSMutableArray alloc] init];
+  [_objects removeAllObjects];
+  
+  const char *term = [_searchTerm.text cStringUsingEncoding:NSUTF8StringEncoding];
+  dispatch_queue_t searchQueue = dispatch_queue_create("Baito Search Queue", NULL);
+
+  dispatch_async(searchQueue, ^{
     SearchResultsResponse res = jobs_search((char *)term);
     int i;
     for (i = 0; i < res.count; i++) {
@@ -62,12 +81,13 @@
     
     clear_job_search(res);
     
-  }
-  
-  [self.tableView reloadData];
-  [searchBar resignFirstResponder];
-  application.networkActivityIndicatorVisible = NO;
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self.tableView reloadData];
+      [searchBar resignFirstResponder];
+      application.networkActivityIndicatorVisible = NO;
+    });
+    
+  });
 }
 
 #pragma mark - Table View
