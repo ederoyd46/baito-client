@@ -19,6 +19,7 @@ typedef struct SearchResultsResponse {
   int skip;
   double latitude;
   double longitude;
+  int morePossible;
   JobSummary *results;
 } SearchResultsResponse;
 

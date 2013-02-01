@@ -86,6 +86,12 @@ SearchResultsResponse jobs_search_for_more(SearchResultsResponse existing) {
     new = jobs_search_full(NULL, existing.latitude, existing.longitude, RESULT_LIMIT, skip);
   }
   
+  if (new.count == 0) {
+    free(new.results);
+    existing.morePossible = 0;
+    return existing;
+  }
+  
   int fullCount = existing.count + new.count;
 
   SearchResultsResponse newResponse;
@@ -94,6 +100,7 @@ SearchResultsResponse jobs_search_for_more(SearchResultsResponse existing) {
   newResponse.latitude = new.latitude;
   newResponse.longitude = new.longitude;
   newResponse.skip = new.skip;
+  newResponse.morePossible = new.morePossible;
   newResponse.searchTerm = new.searchTerm;
   newResponse.results = calloc(fullCount, sizeof(JobSummary));
   
@@ -156,24 +163,28 @@ SearchResultsResponse jobs_search_full(const char *searchTerm, const double lati
   searchResultResponse.skip = json_object_dotget_number(jsonObj, "SearchResultsResponse.skip");
   searchResultResponse.latitude = json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.latitude");
   searchResultResponse.longitude = json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.longitude");
-
+  
   JSON_Array *jsonArray = json_object_dotget_array(jsonObj, "SearchResultsResponse.results");
-  if (jsonArray != NULL && json_array_get_count(jsonArray) > 0) {
+  int total = json_array_get_count(jsonArray);
+  if (total < limit) {
+    searchResultResponse.morePossible = 0;
+  } else {
+    searchResultResponse.morePossible = 1;
+  }
+  
+  if (jsonArray != NULL && total > 0) {
     int i;
-    searchResultResponse.results = calloc(json_array_get_count(jsonArray), sizeof(JobSummary));
-    for (i = 0; i < json_array_get_count(jsonArray); i++) {
+    searchResultResponse.results = calloc(total, sizeof(JobSummary));
+    for (i = 0; i < total; i++) {
       JSON_Object *record = json_array_get_object(jsonArray, i);
-      
+
       const char *uuid = json_object_dotget_string(record, "job.JobSummary.uuid");
-      // searchResultResponse.results[i].uuid = malloc(sizeof(uuid));
       searchResultResponse.results[i].uuid = uuid;
 
       const char *company = json_object_dotget_string(record, "job.JobSummary.company");
-      // searchResultResponse.results[i].company = malloc(sizeof(company));
       searchResultResponse.results[i].company = company;
 
       const char *title = json_object_dotget_string(record, "job.JobSummary.title");
-      // searchResultResponse.results[i].title = malloc(sizeof(title));
       searchResultResponse.results[i].title = title;
     
       searchResultResponse.results[i].wage = json_object_dotget_number(record, "job.JobSummary.wage");

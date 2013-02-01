@@ -81,11 +81,15 @@ BOOL searchRunning = NO;
 - (void) runSearch:(BOOL)isByLocation isSearchMore:(BOOL)searchMore
 {
   if (!searchRunning) {
+    
+    if (searchMore && lastSearchResultResponse.morePossible == 0) {
+      return;
+    }
+    
     searchRunning = YES;
     UIApplication *application = [UIApplication sharedApplication];
     application.networkActivityIndicatorVisible = YES;
 
-    
     __block NSMutableArray *results = [[NSMutableArray alloc] init];
     
     const char *term = [_searchTerm.text cStringUsingEncoding:NSUTF8StringEncoding];
@@ -96,7 +100,7 @@ BOOL searchRunning = NO;
     dispatch_async(searchQueue, ^{
       SearchResultsResponse res;
       if (searchMore) {
-        res = jobs_search_for_more(lastSearchResultResponse);
+          res = jobs_search_for_more(lastSearchResultResponse);
       } else {
         clear_job_search(lastSearchResultResponse);
         if (isByLocation) {
@@ -111,7 +115,9 @@ BOOL searchRunning = NO;
       for (i = 0; i < res.count; i++) {
         NSString *uuid = [NSString stringWithCString:res.results[i].uuid encoding:NSUTF8StringEncoding];
         NSString *title = [NSString stringWithCString:res.results[i].title encoding:NSUTF8StringEncoding];
-        NSDictionary *entry = @{@"uuid": uuid, @"title": title};
+        NSString *distance = [[NSNumber numberWithDouble:res.results[i].distance] stringValue];
+        NSString *disStr = [distance stringByAppendingString:@" mi"];
+        NSDictionary *entry = @{@"uuid": uuid, @"title": title, @"distance": disStr};
         [results addObject:entry];
       }
 
@@ -144,6 +150,8 @@ BOOL searchRunning = NO;
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
   NSDictionary *object = _objects[indexPath.row];
   cell.textLabel.text = [object valueForKey: @"title"];
+  cell.detailTextLabel.text = [object valueForKey: @"distance"];
+
   return cell;
 }
 
@@ -170,7 +178,6 @@ BOOL searchRunning = NO;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-
   if ([[segue identifier] isEqualToString:@"showDetail"]) {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     NSDictionary *object = _objects[indexPath.row];
