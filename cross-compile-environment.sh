@@ -1,5 +1,5 @@
-IOS_BASE_SDK="6.0"
-IOS_DEPLOY_TGT="6.0"
+IOS_BASE_SDK="6.1"
+IOS_DEPLOY_TGT="6.1"
 
 setenv_all()
 {

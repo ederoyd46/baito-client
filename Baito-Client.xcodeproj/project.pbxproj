@@ -16,6 +16,16 @@
 		32B5DC6816B00F0400E59A47 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC6716B00F0400E59A47 /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		32E6283C16B68F2200FA2383 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32E6283416B68F2200FA2383 /* Baito.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32D1F68D16AEEA01006E4EFE;
+			remoteInfo = Baito;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		32B5DC4816AFF74E00E59A47 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -41,6 +51,7 @@
 		32B5DC5D16B00BA300E59A47 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "lib/host-libcurl/lib/libcurl.a"; sourceTree = "<group>"; };
 		32B5DC6416B00DB400E59A47 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "lib/common-libcurl/lib/libcurl.a"; sourceTree = "<group>"; };
 		32B5DC6716B00F0400E59A47 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		32E6283416B68F2200FA2383 /* Baito.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Baito.xcodeproj; path = ios/Baito.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +120,7 @@
 		32B5DC6916B0257600E59A47 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				32E6283416B68F2200FA2383 /* Baito.xcodeproj */,
 				32B5DC6716B00F0400E59A47 /* CoreFoundation.framework */,
 				32B5DC6416B00DB400E59A47 /* libcurl.a */,
 				32B5DC5D16B00BA300E59A47 /* libcurl.a */,
@@ -116,6 +128,14 @@
 				32B5DC5A16B00B8800E59A47 /* Security.framework */,
 			);
 			name = Libraries;
+			sourceTree = "<group>";
+		};
+		32E6283516B68F2200FA2383 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32E6283D16B68F2200FA2383 /* Baito.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,12 +176,28 @@
 			mainGroup = 32B5DC3016AFE33D00E59A47;
 			productRefGroup = 32B5DC4B16AFF74E00E59A47 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 32E6283516B68F2200FA2383 /* Products */;
+					ProjectRef = 32E6283416B68F2200FA2383 /* Baito.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				32B5DC4916AFF74E00E59A47 /* baito-client */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		32E6283D16B68F2200FA2383 /* Baito.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Baito.app;
+			remoteRef = 32E6283C16B68F2200FA2383 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		32B5DC4616AFF74E00E59A47 /* Sources */ = {
