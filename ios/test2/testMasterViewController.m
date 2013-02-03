@@ -61,6 +61,7 @@ BOOL searchRunning = NO;
 
 -(void)currentLocationSearchButtonClicked:(UIBarButtonItem *)currentSearchButton
 {
+  [_searchTerm resignFirstResponder];
   [self runSearch:YES isSearchMore:NO];
 }
 
@@ -92,7 +93,7 @@ BOOL searchRunning = NO;
 
     __block NSMutableArray *results = [[NSMutableArray alloc] init];
     
-    const char *term = [_searchTerm.text cStringUsingEncoding:NSUTF8StringEncoding];
+    NSString *term = _searchTerm.text;
     const CLLocation *location = _currentLocation;
     
     dispatch_queue_t searchQueue = dispatch_queue_create("Baito Search Queue", NULL);
@@ -106,7 +107,7 @@ BOOL searchRunning = NO;
         if (isByLocation) {
           res = jobs_direct_search(location.coordinate.latitude, location.coordinate.longitude);
         } else {
-          res = jobs_search((char *)term);
+          res = jobs_search([term cStringUsingEncoding:NSUTF8StringEncoding]);
         }
       }
 

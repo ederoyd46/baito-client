@@ -10,15 +10,12 @@
 #import <baito.h>
 
 
-@interface baitoViewJobControllerViewController () {
-  NSDictionary *_jobData;
-  MKMapView *_map;
-}
-- (void)configureView;
-@end
-
 
 @implementation baitoViewJobControllerViewController
+
+NSDictionary *_jobData;
+MKMapView *_map;
+MKMapItem *mapItem;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -82,11 +79,9 @@
         _postCodeLabel.text = [_jobData valueForKey:@"postCode"];
         _descriptionLabel.text = [_jobData valueForKey:@"description"];
         
-        if (!_map) {
-          _map = [[MKMapView alloc] initWithFrame:_mapView.bounds];
-          [_map setUserInteractionEnabled:NO];
-          [_mapView addSubview:_map];
-        }
+        _map = [[MKMapView alloc] initWithFrame:_mapView.bounds];
+        [_map setUserInteractionEnabled:NO];
+        [_mapView addSubview:_map];
         
         NSString *latitude = [_jobData valueForKey:@"latitude"];
         NSString *longitude = [_jobData valueForKey:@"longitude"];
@@ -96,12 +91,25 @@
         [_map setRegion:region animated: NO];
         
         MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coord addressDictionary:nil];
+        mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+        [mapItem setName:[_jobData valueForKey:@"title"]];
+        [mapItem setPhoneNumber:[_jobData valueForKey:@"phone"]];
         [_map addAnnotation:placemark];
         
         application.networkActivityIndicatorVisible = NO;
       });
       
     });
+  }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  
+  UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+  
+  if (_mapView.hash == cell.hash) {
+    [mapItem openInMapsWithLaunchOptions:NULL];
   }
 }
 
@@ -121,32 +129,8 @@
   // Dispose of any resources that can be recreated.
 }
 
-//- (void)mapViewWillStartLoadingMap:(MKMapView *)mapView {
-//  NSLog(@"mapViewWillStartLoadingMap called");
-//  
-//  NSString *latitude = [_jobData valueForKey:@"latitude"];
-//  NSString *longitude = [_jobData valueForKey:@"longitude"];
-//  
-//  
-//  CLLocationCoordinate2D coord = { [latitude floatValue], [longitude floatValue] };
-//  MKCoordinateSpan span = {0.001, 0.001};
-//  MKCoordinateRegion region = {coord, span};
-//  
-//  [_mapView setRegion:region animated:NO];
-//  
-//}
-//
-//
-//- (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated {
-//  NSLog(@"didChangeUserTrackingMode called");
-//}
-
 #pragma mark - Table view data source
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-  // Return the number of sections.
-//  return 2;
-//}
+
 
 @end
