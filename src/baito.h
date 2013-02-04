@@ -50,6 +50,7 @@ SearchResultsResponse jobs_search_full(const char *searchTerm, const double lati
 SearchResultsResponse jobs_search_for_more(SearchResultsResponse existingResults);
 int clear_job_search(SearchResultsResponse searchResultsResponse);
 
-JobResponse job_view(const char* jobid);
+JobResponse job_view(const char *jobid);
 //int clear_job_view(JobResponse jobResponse);
 
+void user_login(const char *username, const char *password);

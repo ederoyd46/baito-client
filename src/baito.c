@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <openssl/sha.h>
 #include <curl.h>
 #include "parson.h"
 #include "baito.h"
@@ -245,10 +246,41 @@ JobResponse job_view(const char* jobid) {
     job.latitude = json_object_dotget_number(jsonObj, "JobResponse.job.Job.location.latitude");
     jobResponse.job = job;
   }
-  
+  put_curl_handle(curl_handle);
   return jobResponse;
   
 }
 
+//-User Authentication -----------------------------------------------------------------------
 
+void user_login(const char *username, const char *password) {
+  CURL *curl_handle = get_curl_handle();
+  
+  const char *parsedUsername = curl_easy_escape(curl_handle, username, 0);
+  
+  unsigned char hash[SHA256_DIGEST_LENGTH];
+  SHA256_CTX sha256;
+  SHA256_Init(&sha256);
+  SHA256_Update(&sha256, password, strlen(password));
+  SHA256_Final(hash, &sha256);
+
+  char parsedPassword[65];
+  int i = 0;
+  for(i = 0; i < SHA256_DIGEST_LENGTH; i++) {
+    sprintf(parsedPassword + (i * 2), "%02x", hash[i]);
+  }
+  parsedPassword[64] = 0;
+  
+  char *params = malloc(strlen("username=%s&password=%s")+strlen(parsedUsername)+strlen(parsedPassword));
+  sprintf(params, "username=%s&password=%s", parsedUsername, parsedPassword);
+  
+  
+  curl_easy_setopt(curl_handle, CURLOPT_POST, 1);
+  curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, params);
+  const char *response = get_data(curl_handle, "https://baito.co.uk/api/user/login");
+  
+  printf("%s\n", response);
+  put_curl_handle(curl_handle);
+  
+}
 

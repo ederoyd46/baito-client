@@ -61,6 +61,7 @@ BOOL searchRunning = NO;
 
 -(void)currentLocationSearchButtonClicked:(UIBarButtonItem *)currentSearchButton
 {
+  _searchTerm.text = @"";
   [_searchTerm resignFirstResponder];
   [self runSearch:YES isSearchMore:NO];
 }

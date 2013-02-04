@@ -10,7 +10,7 @@ ifdef CROSS_COMPILE
 	LIB_LIB=$(BUILD_DIR)/$(CROSS_COMPILE)-libbaito/lib
 	COMPILER=$(CC)
 	COMPILER_FLAGS=$(CFLAGS) -Wall -I$(LIB_CURL)/include/curl/
-	LINKER_FLAGS=$(LDFLAGS) -framework CoreFoundation -framework Security -lz -lcurl -L$(LIB_CURL)/lib/
+	LINKER_FLAGS=$(LDFLAGS) -framework CoreFoundation -framework Security -lz -lcurl -L$(LIB_CURL)/lib/ -lssl -lcrypto
 else 
 	BAITO_CLIENT=baito-client
 	LIB_CURL=$(BASE_DIR)/lib/host-libcurl
@@ -18,7 +18,7 @@ else
 	LIB_LIB=$(BUILD_DIR)/libbaito/lib
 	COMPILER=gcc
 	COMPILER_FLAGS=-Wall -I$(LIB_CURL)/include/curl/
-	LINKER_FLAGS=-framework CoreFoundation -framework Security -lz -lcurl -L$(LIB_CURL)/lib/
+	LINKER_FLAGS=-framework CoreFoundation -framework Security -lz -lcurl -L$(LIB_CURL)/lib/ -lssl -lcrypto
 endif
 
 

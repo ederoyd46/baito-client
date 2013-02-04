@@ -52,7 +52,11 @@ int printJobResponse(JobResponse res) {
 int main(int argc, char * argv[])
 {
   if (argc == 1) {
-    printf("Usage\nsearch [term]\nsearchmore [term]\njob [jobid]\n");
+    puts("Usage");
+    puts("search [term]");
+    puts("searchmore [term] [repeat]");
+    puts("job [jobid]");
+    puts("login [username] [password]");
     return 0;
   }
 
@@ -93,13 +97,23 @@ int main(int argc, char * argv[])
   int job = strncmp("job", argv[1], strlen(argv[1]));
   if (job == 0) {
     if (!argv[2]) {
-      puts("Enter a term and a jobid");
+      puts("Enter a jobid");
     }
     const char *jobid = argv[2];
     JobResponse res = job_view(jobid);
     printJobResponse(res);
   }
-  
+
+  int login = strncmp("login", argv[1], strlen(argv[1]));
+  if (login == 0) {
+    if (!argv[2] || !argv[3]) {
+      puts("Enter a username and password");
+    }
+    const char *username = argv[2];
+    const char *password = argv[3];
+    
+    user_login(username, password);
+  }
   
   return 0;
 }
