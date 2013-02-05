@@ -8,7 +8,7 @@ LIB_INSTALL_PATH=$BASE_PATH/lib
 
 mkdir -p $LIB_SRC_PATH $LIB_INSTALL_PATH
 
-if [ "$uname" == 'NO  Darwin' ]; then
+if [ "$uname" == 'Darwin' ]; then
   SSL_VERSION=1.0.1c
   cd $LIB_SRC_PATH
   curl -C - -O http://www.openssl.org/source/openssl-$SSL_VERSION.tar.gz
@@ -76,9 +76,13 @@ if [ "$uname" == 'Darwin' ]; then
     EXTRA_CONFIGURE_OPTS=$3
     cd $LIB_SRC_PATH/curl-$CURL_VERSION
     make clean
-    ./configure --prefix=$LIB_INSTALL_PATH/$ARCH-libcurl $HOST $COMMON_CURL_CONFIGURE_OPTS $EXTRA_CONFIGURE_OPTS
-    make
-    make install
+    
+    echo Configuring $ARCH see /tmp/build-platform-configure-libcurl-$ARCH.log
+    ./configure --prefix=$LIB_INSTALL_PATH/$ARCH-libcurl $HOST $COMMON_CURL_CONFIGURE_OPTS $EXTRA_CONFIGURE_OPTS &> /tmp/build-platform-configure-libcurl-$ARCH.log
+    echo Building $ARCH see /tmp/build-platform-build-libcurl-$ARCH.log
+    make &> /tmp/build-platform-build-libcurl-$ARCH.log
+    echo Installing $ARCH see /tmp/build-platform-install-libcurl-$ARCH.log
+    make install &> /tmp/build-platform-install-libcurl-$ARCH.log
   }
   
   
@@ -100,8 +104,8 @@ if [ "$uname" == 'Darwin' ]; then
   
 fi
 # 
-# cd $LIB_SRC_PATH
-# git clone https://github.com/ederoyd46/parson.git
+cd $LIB_SRC_PATH
+git clone https://github.com/ederoyd46/parson.git
 
 
 
