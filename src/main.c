@@ -51,17 +51,7 @@ int printJobResponse(JobResponse res) {
 
 int main(int argc, char * argv[])
 {
-  if (argc == 1) {
-    puts("Usage");
-    puts("search [term]");
-    puts("searchmore [term] [repeat]");
-    puts("job [jobid]");
-    puts("login [username] [password]");
-    return 0;
-  }
-
-  int search = strncmp("search", argv[1], strlen(argv[1]));
-  if (search == 0) {
+  if (argv[1] && strncmp("search", argv[1], strlen(argv[1])) == 0) {
     if (!argv[2]) {
       puts("Enter a term");
       return 1;
@@ -73,8 +63,7 @@ int main(int argc, char * argv[])
     return 0;
   }
 
-  int searchmore = strncmp("searchmore", argv[1], strlen(argv[1]));
-  if (searchmore == 0) {
+  if (argv[1] && strncmp("searchmore", argv[1], strlen(argv[1])) == 0) {
     if (!argv[2] || !argv[3]) {
       puts("Enter a term and a repeat");
       return 1;
@@ -93,31 +82,82 @@ int main(int argc, char * argv[])
     clear_job_search(res);
     return 0;
   }
-  
-  int job = strncmp("job", argv[1], strlen(argv[1]));
-  if (job == 0) {
+
+  if (argv[1] && strncmp("job", argv[1], strlen(argv[1])) == 0) {
     if (!argv[2]) {
       puts("Enter a jobid");
+      return 1;
     }
     const char *jobid = argv[2];
     JobResponse res = job_view(jobid);
     printJobResponse(res);
+    return 0;
   }
 
-  int login = strncmp("login", argv[1], strlen(argv[1]));
-  if (login == 0) {
+  if (argv[1] && strncmp("login", argv[1], strlen(argv[1])) == 0) {
     if (!argv[2] || !argv[3]) {
       puts("Enter a username and password");
+      return 1;
     }
     const char *username = argv[2];
     const char *password = argv[3];
     
-    const char *sessionId = user_login(username, password);
+    const char *sessionKey = user_login(username, password);
     puts("------------------------------------------------");
-    printf("Session ID: %s\n", sessionId);
+    printf("Session ID: %s\n", sessionKey);
     puts("------------------------------------------------");
+    return 0;
+  }
+
+  if (argv[1] && strncmp("whoami", argv[1], strlen(argv[1])) == 0) {
+    if (!argv[2]) {
+      puts("Enter a session key");
+      return 1;
+    }
+    const char *sessionKey = argv[2];
+    who_am_i(sessionKey);
+    return 0;
+  }
+
+  if (argv[1] && strncmp("viewfavourites", argv[1], strlen(argv[1])) == 0) {
+    if (!argv[2]) {
+      puts("Enter a session key");
+      return 1;
+    }
+    const char *sessionKey = argv[2];
+    user_view_favourites(sessionKey);
+    return 0;
+  }
+
+  if (argv[1] && strncmp("viewapplications", argv[1], strlen(argv[1])) == 0) {
+    if (!argv[2]) {
+      puts("Enter a session key");
+      return 1;
+    }
+    const char *sessionKey = argv[2];
+    user_view_applications(sessionKey);
+    return 0;
+  }
+
+  if (argv[1] && strncmp("viewcreated", argv[1], strlen(argv[1])) == 0) {
+    if (!argv[2]) {
+      puts("Enter a session key");
+      return 1;
+    }
+    const char *sessionKey = argv[2];
+    user_view_created(sessionKey);
+    return 0;
   }
   
+  puts("Usage");
+  puts("search [term]");
+  puts("searchmore [term] [repeat]");
+  puts("job [jobid]");
+  puts("login [username] [password]");
+  puts("whoami [sessionkey]");
+  puts("viewfavourites [sessionkey]");
+  puts("viewapplications [sessionkey]");
+  puts("viewcreated [sessionkey]");
   return 0;
 }
 

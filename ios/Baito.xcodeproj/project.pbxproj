@@ -94,8 +94,6 @@
 		32D1F68216AEEA01006E4EFE = {
 			isa = PBXGroup;
 			children = (
-				3277289216C1452B00F02A96 /* libcrypto.a */,
-				3277289316C1452B00F02A96 /* libssl.a */,
 				32D1F69716AEEA01006E4EFE /* baito */,
 				32D1F69016AEEA01006E4EFE /* Frameworks */,
 				32D1F68E16AEEA01006E4EFE /* Products */,
@@ -115,6 +113,8 @@
 		32D1F69016AEEA01006E4EFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3277289216C1452B00F02A96 /* libcrypto.a */,
+				3277289316C1452B00F02A96 /* libssl.a */,
 				32B5DC2416AEF6F800E59A47 /* libcurl.a */,
 				32B5DC2216AEF27C00E59A47 /* libbaito.a */,
 				32B5DC1D16AEF24700E59A47 /* libz.dylib */,

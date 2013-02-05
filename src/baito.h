@@ -44,6 +44,11 @@ typedef struct JobResponse {
   Job job;
 } JobResponse;
 
+typedef struct UserResponse {
+  int success;
+} UserResponse;
+
+
 SearchResultsResponse jobs_search(const char *searchTerm);
 SearchResultsResponse jobs_direct_search(const double latitude, const double longitude);
 SearchResultsResponse jobs_search_full(const char *searchTerm, const double latitude, const double longitude, int limit, int skip);
@@ -54,3 +59,11 @@ JobResponse job_view(const char *jobid);
 //int clear_job_view(JobResponse jobResponse);
 
 const char* user_login(const char *username, const char *password);
+
+void who_am_i(const char *sessionKey);
+
+void user_view_favourites(const char *sessionKey);
+void user_view_applications(const char *sessionKey);
+void user_view_created(const char *sessionKey);
+
+

@@ -55,7 +55,7 @@ static int put_curl_handle(CURL *curl_handle) {
 }
 
 
-const char* get_session_id(CURL *curl_handle) {
+const char* get_session_key(CURL *curl_handle) {
   CURLcode res;
   struct curl_slist *cookies;
   struct curl_slist *nc;
@@ -65,7 +65,7 @@ const char* get_session_id(CURL *curl_handle) {
     fprintf(stderr, "Curl curl_easy_getinfo failed: %s\n", curl_easy_strerror(res));
   }
   nc = cookies;
-  char *sessionId;
+  char *sessionKey;
   while (nc) {
     char *data = nc->data;
     char *token;
@@ -75,7 +75,7 @@ const char* get_session_id(CURL *curl_handle) {
       const char *current_token = token;
       if (strcmp("sessionkey", current_token) == 0) {
         token = strtok (NULL, "\t");
-        sessionId = token;
+        sessionKey = token;
         break;
       }
       token = strtok (NULL, "\t");
@@ -83,7 +83,7 @@ const char* get_session_id(CURL *curl_handle) {
     nc = nc->next;
   }
   curl_slist_free_all(cookies);
-  return sessionId;
+  return sessionKey;
 }
 
 static char* get_data(CURL *curl_handle, char *url) {
@@ -317,8 +317,52 @@ const char* user_login(const char *username, const char *password) {
   printf("%s\n", response);
   
   
-  const char *sessionId = get_session_id(curl_handle);
+  const char *sessionKey = get_session_key(curl_handle);
   put_curl_handle(curl_handle);
-  return sessionId;
+  return sessionKey;
 }
+
+void who_am_i(const char *sessionKey) {
+  const char *api = "https://baito.co.uk/api/user/whoami?sessionkey=%s";
+
+  CURL *curl_handle = get_curl_handle();
+  char *apiUrl = malloc(strlen(api) + strlen(sessionKey) +1);
+  sprintf(apiUrl, api, sessionKey);
+  const char *response = get_data(curl_handle, apiUrl);
+  puts(response);
+}
+
+void user_view_favourites(const char *sessionKey) {
+  const char *api = "https://baito.co.uk/api/user/view/favourites?sessionkey=%s";
+  CURL *curl_handle = get_curl_handle();
+  char *apiUrl = malloc(strlen(api) + strlen(sessionKey) +1);
+  sprintf(apiUrl, api, sessionKey);
+  const char *response = get_data(curl_handle, apiUrl);
+  puts(response);
+}
+
+void user_view_applications(const char *sessionKey) {
+  const char *api = "https://baito.co.uk/api/user/view/applications?sessionkey=%s";
+  CURL *curl_handle = get_curl_handle();
+  char *apiUrl = malloc(strlen(api) + strlen(sessionKey) +1);
+  sprintf(apiUrl, api, sessionKey);
+  const char *response = get_data(curl_handle, apiUrl);
+  puts(response);
+}
+
+void user_view_created(const char *sessionKey) {
+  const char *api = "https://baito.co.uk/api/user/view/created?sessionkey=%s";
+  CURL *curl_handle = get_curl_handle();
+  char *apiUrl = malloc(strlen(api) + strlen(sessionKey) +1);
+  sprintf(apiUrl, api, sessionKey);
+  const char *response = get_data(curl_handle, apiUrl);
+  puts(response);  
+}
+
+
+
+
+
+
+
 
