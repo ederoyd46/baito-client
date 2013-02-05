@@ -15,10 +15,11 @@
 		3262F9A116B4400500CCB419 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3262F9A016B4400500CCB419 /* CoreLocation.framework */; };
 		326652BF16B13F720083CDFF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 326652BE16B13F720083CDFF /* MapKit.framework */; };
 		326652C216B188780083CDFF /* baitoViewJobControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 326652C116B188780083CDFF /* baitoViewJobControllerViewController.m */; };
+		3277289016C13BA900F02A96 /* libbaito.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC2216AEF27C00E59A47 /* libbaito.a */; };
+		3277289116C13BF700F02A96 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC2416AEF6F800E59A47 /* libcurl.a */; };
+		3277289416C1452B00F02A96 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3277289216C1452B00F02A96 /* libcrypto.a */; };
+		3277289516C1452B00F02A96 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3277289316C1452B00F02A96 /* libssl.a */; };
 		32B5DC1F16AEF24700E59A47 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC1D16AEF24700E59A47 /* libz.dylib */; };
-		32B5DC2016AEF24700E59A47 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC1E16AEF24700E59A47 /* Security.framework */; };
-		32B5DC2316AEF27C00E59A47 /* libbaito.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC2216AEF27C00E59A47 /* libbaito.a */; };
-		32B5DC2516AEF6F800E59A47 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC2416AEF6F800E59A47 /* libcurl.a */; };
 		32D1F69216AEEA01006E4EFE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1F69116AEEA01006E4EFE /* UIKit.framework */; };
 		32D1F69416AEEA01006E4EFE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1F69316AEEA01006E4EFE /* Foundation.framework */; };
 		32D1F69616AEEA01006E4EFE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1F69516AEEA01006E4EFE /* CoreGraphics.framework */; };
@@ -39,6 +40,8 @@
 		326652BE16B13F720083CDFF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		326652C016B188780083CDFF /* baitoViewJobControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = baitoViewJobControllerViewController.h; sourceTree = "<group>"; };
 		326652C116B188780083CDFF /* baitoViewJobControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = baitoViewJobControllerViewController.m; sourceTree = "<group>"; };
+		3277289216C1452B00F02A96 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../lib/common-libssl/lib/libcrypto.a"; sourceTree = "<group>"; };
+		3277289316C1452B00F02A96 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../lib/common-libssl/lib/libssl.a"; sourceTree = "<group>"; };
 		32B5DC1D16AEF24700E59A47 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		32B5DC1E16AEF24700E59A47 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		32B5DC2216AEF27C00E59A47 /* libbaito.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbaito.a; path = "../build/common-libbaito/lib/libbaito.a"; sourceTree = "<group>"; };
@@ -63,12 +66,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3277289416C1452B00F02A96 /* libcrypto.a in Frameworks */,
+				3277289516C1452B00F02A96 /* libssl.a in Frameworks */,
+				3277289116C13BF700F02A96 /* libcurl.a in Frameworks */,
+				3277289016C13BA900F02A96 /* libbaito.a in Frameworks */,
 				3262F9A116B4400500CCB419 /* CoreLocation.framework in Frameworks */,
 				326652BF16B13F720083CDFF /* MapKit.framework in Frameworks */,
-				32B5DC2516AEF6F800E59A47 /* libcurl.a in Frameworks */,
-				32B5DC2316AEF27C00E59A47 /* libbaito.a in Frameworks */,
 				32B5DC1F16AEF24700E59A47 /* libz.dylib in Frameworks */,
-				32B5DC2016AEF24700E59A47 /* Security.framework in Frameworks */,
 				32D1F69216AEEA01006E4EFE /* UIKit.framework in Frameworks */,
 				32D1F69416AEEA01006E4EFE /* Foundation.framework in Frameworks */,
 				32D1F69616AEEA01006E4EFE /* CoreGraphics.framework in Frameworks */,
@@ -90,6 +94,8 @@
 		32D1F68216AEEA01006E4EFE = {
 			isa = PBXGroup;
 			children = (
+				3277289216C1452B00F02A96 /* libcrypto.a */,
+				3277289316C1452B00F02A96 /* libssl.a */,
 				32D1F69716AEEA01006E4EFE /* baito */,
 				32D1F69016AEEA01006E4EFE /* Frameworks */,
 				32D1F68E16AEEA01006E4EFE /* Products */,
@@ -306,13 +312,14 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "test2/Baito-Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../Baito-Client/build/common-libbaito/include/baito\"";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../Baito-Client/build/common-libbaito/include/\"";
 				INFOPLIST_FILE = "test2/Baito-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../Baito-Client/build/common-libbaito/lib\"",
 					"\"$(SRCROOT)/../../Baito-Client/lib/common-libcurl/lib\"",
+					"\"$(SRCROOT)/../lib/common-libssl/lib\"",
 				);
 				PRODUCT_NAME = Baito;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -325,13 +332,14 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "test2/Baito-Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../Baito-Client/build/common-libbaito/include/baito\"";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../Baito-Client/build/common-libbaito/include/\"";
 				INFOPLIST_FILE = "test2/Baito-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../Baito-Client/build/common-libbaito/lib\"",
 					"\"$(SRCROOT)/../../Baito-Client/lib/common-libcurl/lib\"",
+					"\"$(SRCROOT)/../lib/common-libssl/lib\"",
 				);
 				PRODUCT_NAME = Baito;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -57,6 +57,17 @@ if [ "$uname" == 'Darwin' ]; then
   build_openssl $IPHONE_OS_GCC "armv7" $IPHONE_OS_SDK
   build_openssl $IPHONE_OS_GCC "armv7s" $IPHONE_OS_SDK
   build_openssl $IPHONE_SIM_GCC "i386" $IPHONE_SIM_SDK
+  
+  
+  mkdir -p $LIB_INSTALL_PATH/common-libssl/lib $LIB_INSTALL_PATH/common-libssl/include
+  cp -r $LIB_INSTALL_PATH/host-libssl/include/* $LIB_INSTALL_PATH/common-libssl/include
+  lipo -create -output $LIB_INSTALL_PATH/common-libssl/lib/libssl.a $LIB_INSTALL_PATH/armv7s-libssl/lib/libssl.a \
+    $LIB_INSTALL_PATH/armv7-libssl/lib/libssl.a $LIB_INSTALL_PATH/i386-libssl/lib/libssl.a $LIB_INSTALL_PATH/host-libssl/lib/libssl.a 
+
+  lipo -create -output $LIB_INSTALL_PATH/common-libssl/lib/libcrypto.a $LIB_INSTALL_PATH/armv7s-libssl/lib/libcrypto.a \
+    $LIB_INSTALL_PATH/armv7-libssl/lib/libcrypto.a $LIB_INSTALL_PATH/i386-libssl/lib/libcrypto.a $LIB_INSTALL_PATH/host-libssl/lib/libcrypto.a 
+  
+  
 fi
 
 

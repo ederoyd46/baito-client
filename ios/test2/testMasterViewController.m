@@ -8,7 +8,7 @@
 
 #import "testMasterViewController.h"
 #import "baitoViewJobControllerViewController.h"
-#import <baito.h>
+#import <baito/baito.h>
 
 @implementation testMasterViewController
 

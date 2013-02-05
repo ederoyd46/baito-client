@@ -7,24 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3277288C16C13ACB00F02A96 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3277288A16C13ACB00F02A96 /* libcrypto.a */; };
+		3277288D16C13ACB00F02A96 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3277288B16C13ACB00F02A96 /* libssl.a */; };
+		3277288F16C13B1D00F02A96 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3277288E16C13B1D00F02A96 /* libcurl.a */; };
 		32B5DC5B16B00B8800E59A47 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC5916B00B8800E59A47 /* libz.dylib */; };
-		32B5DC5C16B00B8800E59A47 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC5A16B00B8800E59A47 /* Security.framework */; };
 		32B5DC5F16B00D1700E59A47 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 32B5DC3F16AFE39F00E59A47 /* main.c */; };
 		32B5DC6016B00D3000E59A47 /* baito.c in Sources */ = {isa = PBXBuildFile; fileRef = 32B5DC3C16AFE39F00E59A47 /* baito.c */; };
 		32B5DC6216B00D3000E59A47 /* parson.c in Sources */ = {isa = PBXBuildFile; fileRef = 32B5DC4016AFE39F00E59A47 /* parson.c */; };
-		32B5DC6616B00E7A00E59A47 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC5D16B00BA300E59A47 /* libcurl.a */; };
-		32B5DC6816B00F0400E59A47 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC6716B00F0400E59A47 /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		32E6283C16B68F2200FA2383 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 32E6283416B68F2200FA2383 /* Baito.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 32D1F68D16AEEA01006E4EFE;
-			remoteInfo = Baito;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		32B5DC4816AFF74E00E59A47 /* CopyFiles */ = {
@@ -39,6 +29,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3277288A16C13ACB00F02A96 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "lib/host-libssl/lib/libcrypto.a"; sourceTree = "<group>"; };
+		3277288B16C13ACB00F02A96 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "lib/host-libssl/lib/libssl.a"; sourceTree = "<group>"; };
+		3277288E16C13B1D00F02A96 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "lib/host-libcurl/lib/libcurl.a"; sourceTree = "<group>"; };
 		32B5DC3C16AFE39F00E59A47 /* baito.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = baito.c; path = src/baito.c; sourceTree = "<group>"; };
 		32B5DC3D16AFE39F00E59A47 /* baito.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = baito.h; path = src/baito.h; sourceTree = "<group>"; };
 		32B5DC3E16AFE39F00E59A47 /* example.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = example.c; path = src/example.c; sourceTree = "<group>"; };
@@ -47,11 +40,6 @@
 		32B5DC4116AFE39F00E59A47 /* parson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = parson.h; path = src/parson.h; sourceTree = "<group>"; };
 		32B5DC4A16AFF74E00E59A47 /* baito-client */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "baito-client"; sourceTree = BUILT_PRODUCTS_DIR; };
 		32B5DC5916B00B8800E59A47 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
-		32B5DC5A16B00B8800E59A47 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		32B5DC5D16B00BA300E59A47 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "lib/host-libcurl/lib/libcurl.a"; sourceTree = "<group>"; };
-		32B5DC6416B00DB400E59A47 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "lib/common-libcurl/lib/libcurl.a"; sourceTree = "<group>"; };
-		32B5DC6716B00F0400E59A47 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		32E6283416B68F2200FA2383 /* Baito.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Baito.xcodeproj; path = ios/Baito.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +47,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32B5DC6816B00F0400E59A47 /* CoreFoundation.framework in Frameworks */,
-				32B5DC5C16B00B8800E59A47 /* Security.framework in Frameworks */,
+				3277288F16C13B1D00F02A96 /* libcurl.a in Frameworks */,
+				3277288C16C13ACB00F02A96 /* libcrypto.a in Frameworks */,
+				3277288D16C13ACB00F02A96 /* libssl.a in Frameworks */,
 				32B5DC5B16B00B8800E59A47 /* libz.dylib in Frameworks */,
-				32B5DC6616B00E7A00E59A47 /* libcurl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,22 +108,12 @@
 		32B5DC6916B0257600E59A47 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				32E6283416B68F2200FA2383 /* Baito.xcodeproj */,
-				32B5DC6716B00F0400E59A47 /* CoreFoundation.framework */,
-				32B5DC6416B00DB400E59A47 /* libcurl.a */,
-				32B5DC5D16B00BA300E59A47 /* libcurl.a */,
+				3277288E16C13B1D00F02A96 /* libcurl.a */,
+				3277288A16C13ACB00F02A96 /* libcrypto.a */,
+				3277288B16C13ACB00F02A96 /* libssl.a */,
 				32B5DC5916B00B8800E59A47 /* libz.dylib */,
-				32B5DC5A16B00B8800E59A47 /* Security.framework */,
 			);
 			name = Libraries;
-			sourceTree = "<group>";
-		};
-		32E6283516B68F2200FA2383 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				32E6283D16B68F2200FA2383 /* Baito.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,28 +154,12 @@
 			mainGroup = 32B5DC3016AFE33D00E59A47;
 			productRefGroup = 32B5DC4B16AFF74E00E59A47 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 32E6283516B68F2200FA2383 /* Products */;
-					ProjectRef = 32E6283416B68F2200FA2383 /* Baito.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				32B5DC4916AFF74E00E59A47 /* baito-client */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		32E6283D16B68F2200FA2383 /* Baito.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Baito.app;
-			remoteRef = 32E6283C16B68F2200FA2383 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		32B5DC4616AFF74E00E59A47 /* Sources */ = {
