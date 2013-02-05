@@ -54,6 +54,38 @@ static int put_curl_handle(CURL *curl_handle) {
   return 0;
 }
 
+
+const char* get_session_id(CURL *curl_handle) {
+  CURLcode res;
+  struct curl_slist *cookies;
+  struct curl_slist *nc;
+  
+  res = curl_easy_getinfo(curl_handle, CURLINFO_COOKIELIST, &cookies);
+  if (res != CURLE_OK) {
+    fprintf(stderr, "Curl curl_easy_getinfo failed: %s\n", curl_easy_strerror(res));
+  }
+  nc = cookies;
+  char *sessionId;
+  while (nc) {
+    char *data = nc->data;
+    char *token;
+    
+    token = strtok(data, "\t");
+    while (token != NULL) {
+      const char *current_token = token;
+      if (strcmp("sessionkey", current_token) == 0) {
+        token = strtok (NULL, "\t");
+        sessionId = token;
+        break;
+      }
+      token = strtok (NULL, "\t");
+    }
+    nc = nc->next;
+  }
+  curl_slist_free_all(cookies);
+  return sessionId;
+}
+
 static char* get_data(CURL *curl_handle, char *url) {
   CURLcode res;
 
@@ -66,7 +98,8 @@ static char* get_data(CURL *curl_handle, char *url) {
     curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&chunk);
     curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
     curl_easy_setopt(curl_handle, CURLOPT_SSL_VERIFYPEER, 0);
-//    curl_easy_setopt(curl_handle, CURLOPT_SSL_VERIFYHOST, 0);
+    //    curl_easy_setopt(curl_handle, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_easy_setopt(curl_handle, CURLOPT_COOKIEFILE, "");
     res = curl_easy_perform(curl_handle);
     
     if(res != CURLE_OK)
@@ -255,7 +288,7 @@ JobResponse job_view(const char* jobid) {
 
 //-User Authentication -----------------------------------------------------------------------
 
-void user_login(const char *username, const char *password) {
+const char* user_login(const char *username, const char *password) {
   CURL *curl_handle = get_curl_handle();
   
   const char *parsedUsername = curl_easy_escape(curl_handle, username, 0);
@@ -282,7 +315,10 @@ void user_login(const char *username, const char *password) {
   const char *response = get_data(curl_handle, "https://baito.co.uk/api/user/login");
   
   printf("%s\n", response);
-  put_curl_handle(curl_handle);
   
+  
+  const char *sessionId = get_session_id(curl_handle);
+  put_curl_handle(curl_handle);
+  return sessionId;
 }
 

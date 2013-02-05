@@ -112,7 +112,10 @@ int main(int argc, char * argv[])
     const char *username = argv[2];
     const char *password = argv[3];
     
-    user_login(username, password);
+    const char *sessionId = user_login(username, password);
+    puts("------------------------------------------------");
+    printf("Session ID: %s\n", sessionId);
+    puts("------------------------------------------------");
   }
   
   return 0;

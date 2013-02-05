@@ -53,4 +53,4 @@ int clear_job_search(SearchResultsResponse searchResultsResponse);
 JobResponse job_view(const char *jobid);
 //int clear_job_view(JobResponse jobResponse);
 
-void user_login(const char *username, const char *password);
+const char* user_login(const char *username, const char *password);
