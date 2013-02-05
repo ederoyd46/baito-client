@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <openssl/sha.h>
-#include <curl.h>
+#include <curl/curl.h>
 #include "parson.h"
 #include "baito.h"
 
@@ -65,6 +65,8 @@ static char* get_data(CURL *curl_handle, char *url) {
     curl_easy_setopt(curl_handle, CURLOPT_URL, url);
     curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&chunk);
     curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
+    curl_easy_setopt(curl_handle, CURLOPT_SSL_VERIFYPEER, 0);
+//    curl_easy_setopt(curl_handle, CURLOPT_SSL_VERIFYHOST, 0);
     res = curl_easy_perform(curl_handle);
     
     if(res != CURLE_OK)

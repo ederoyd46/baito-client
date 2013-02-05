@@ -15,8 +15,13 @@ if [ "$uname" == 'NO  Darwin' ]; then
   tar zxf openssl-$SSL_VERSION.tar.gz
   cd openssl-$SSL_VERSION
 
+  echo Configuring host see /tmp/build-platform-configure-openssl-host.log
   ./Configure darwin64-x86_64-cc --prefix=$LIB_INSTALL_PATH/host-libssl &> /tmp/build-platform-configure-openssl-host.log
+
+  echo Building host see /tmp/build-platform-build-openssl-host.log
   make &> /tmp/build-platform-build-openssl-host.log
+
+  echo Installing host see /tmp/build-platform-install-openssl-host.log
   make install &> /tmp/build-platform-install-openssl-host.log
 
   build_openssl() {
@@ -25,19 +30,22 @@ if [ "$uname" == 'NO  Darwin' ]; then
     IOS_SDK_ROOT=$3
     
     echo ARCH $ARCH
-    echo COMPILER $COMPILER
-    echo IOS_SDK_ROOT $IOS_SDK_ROOT
     
     cd $LIB_SRC_PATH
     rm -rf openssl-$SSL_VERSION
     tar zxf openssl-$SSL_VERSION.tar.gz
     cd openssl-$SSL_VERSION
     
+    echo Configuring $ARCH see /tmp/build-platform-configure-openssl-$ARCH.log
     ./Configure BSD-generic32 --prefix=$LIB_INSTALL_PATH/$ARCH-libssl &>/tmp/build-platform-configure-openssl-$ARCH.log
     perl -i -pe 's|static volatile sig_atomic_t intr_signal|static volatile int intr_signal|' crypto/ui/ui_openssl.c
     perl -i -pe "s|^CC= gcc|CC= ${COMPILER} -arch ${ARCH}|g" Makefile
     perl -i -pe "s|^CFLAG= (.*)|CFLAG= -isysroot ${IOS_SDK_ROOT} \$1|g" Makefile
+
+    echo Building $ARCH see /tmp/build-platform-build-openssl-$ARCH.log
     make &> /tmp/build-platform-build-openssl-$ARCH.log
+
+    echo Installing $ARCH see /tmp/build-platform-install-openssl-$ARCH.log
     make install &> /tmp/build-platform-install-openssl-$ARCH.log
   }
 
@@ -57,40 +65,38 @@ fi
 #Currently only set up to work on the Mac. Need to sort out the --with-darwinssl to use on another platform
 if [ "$uname" == 'Darwin' ]; then
   CURL_VERSION=7.28.1
-  COMMON_CURL_CONFIGURE_OPTS="--disable-shared --enable-static --without-darwinssl --with-ssl=$LIB_INSTALL_PATH/host-libssl --without-libssh2 --without-librtmp --without-libidn --without-ca-bundle --enable-http --disable-rtsp --disable-ftp --disable-file --disable-ldap --disable-ldaps --disable-dict --disable-telnet --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher"
-  
+  COMMON_CURL_CONFIGURE_OPTS="--disable-shared --enable-static --without-darwinssl --without-libssh2 --without-librtmp --without-libidn --without-ca-bundle --enable-http --disable-rtsp --disable-ftp --disable-file --disable-ldap --disable-ldaps --disable-dict --disable-telnet --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher"
   cd $LIB_SRC_PATH
-
   curl -C - -O http://curl.haxx.se/download/curl-$CURL_VERSION.tar.bz2
   tar jxf curl-$CURL_VERSION.tar.bz2 
 
-  cd curl-$CURL_VERSION
-  ./configure --prefix=$LIB_INSTALL_PATH/host-libcurl $COMMON_CURL_CONFIGURE_OPTS
-  make
-  make install
+  build_curl() {
+    ARCH=$1
+    HOST=$2
+    EXTRA_CONFIGURE_OPTS=$3
+    cd $LIB_SRC_PATH/curl-$CURL_VERSION
+    make clean
+    ./configure --prefix=$LIB_INSTALL_PATH/$ARCH-libcurl $HOST $COMMON_CURL_CONFIGURE_OPTS $EXTRA_CONFIGURE_OPTS
+    make
+    make install
+  }
   
-  # setenv_i386
-  # ./configure --prefix=$LIB_INSTALL_PATH/i386-libcurl --host=i386-apple-darwin $COMMON_CURL_CONFIGURE_OPTS
-  # make
-  # make install
-  # make clean
-  # 
-  # setenv_arm7
-  # ./configure --prefix=$LIB_INSTALL_PATH/arm7-libcurl --host=armv7-apple-darwin $COMMON_CURL_CONFIGURE_OPTS
-  # make
-  # make install
-  # make clean
-  # 
-  # setenv_arm7s
-  # ./configure --prefix=$LIB_INSTALL_PATH/arm7s-libcurl --host=armv7s-apple-darwin $COMMON_CURL_CONFIGURE_OPTS
-  # make
-  # make install
-  # make clean
-  # 
-  # mkdir -p $LIB_INSTALL_PATH/common-libcurl/lib $LIB_INSTALL_PATH/common-libcurl/include
-  # cp -r $LIB_INSTALL_PATH/host-libcurl/include/* $LIB_INSTALL_PATH/common-libcurl/include
-  # lipo -create -output $LIB_INSTALL_PATH/common-libcurl/lib/libcurl.a $LIB_INSTALL_PATH/arm7s-libcurl/lib/libcurl.a \
-  #   $LIB_INSTALL_PATH/arm7-libcurl/lib/libcurl.a $LIB_INSTALL_PATH/i386-libcurl/lib/libcurl.a $LIB_INSTALL_PATH/host-libcurl/lib/libcurl.a 
+  
+  build_curl "host" "" "--with-ssl=$LIB_INSTALL_PATH/host-libssl"
+  
+  setenv_i386
+  build_curl "i386" "--host=i386-apple-darwin" "--with-ssl=$LIB_INSTALL_PATH/i386-libssl"
+  
+  setenv_arm7
+  build_curl "armv7" "--host=armv7-apple-darwin" "--with-ssl=$LIB_INSTALL_PATH/armv7-libssl"
+  
+  setenv_arm7s
+  build_curl "armv7s" "--host=armv7s-apple-darwin" "--with-ssl=$LIB_INSTALL_PATH/arm7s-libssl"
+  
+  mkdir -p $LIB_INSTALL_PATH/common-libcurl/lib $LIB_INSTALL_PATH/common-libcurl/include
+  cp -r $LIB_INSTALL_PATH/host-libcurl/include/* $LIB_INSTALL_PATH/common-libcurl/include
+  lipo -create -output $LIB_INSTALL_PATH/common-libcurl/lib/libcurl.a $LIB_INSTALL_PATH/armv7s-libcurl/lib/libcurl.a \
+    $LIB_INSTALL_PATH/armv7-libcurl/lib/libcurl.a $LIB_INSTALL_PATH/i386-libcurl/lib/libcurl.a $LIB_INSTALL_PATH/host-libcurl/lib/libcurl.a 
   
 fi
 # 

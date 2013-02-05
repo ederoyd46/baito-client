@@ -6,19 +6,21 @@ BUILD_DIR=$(BASE_DIR)/build
 ifdef CROSS_COMPILE
 	BAITO_CLIENT=$(CROSS_COMPILE)-baito-client
 	LIB_CURL=$(BASE_DIR)/lib/$(CROSS_COMPILE)-libcurl
+	LIB_SSL=$(BASE_DIR)/lib/$(CROSS_COMPILE)-libssl
 	LIB_INCLUDE=$(BUILD_DIR)/$(CROSS_COMPILE)-libbaito/include/baito 
 	LIB_LIB=$(BUILD_DIR)/$(CROSS_COMPILE)-libbaito/lib
 	COMPILER=$(CC)
-	COMPILER_FLAGS=$(CFLAGS) -Wall -I$(LIB_CURL)/include/curl/
-	LINKER_FLAGS=$(LDFLAGS) -framework CoreFoundation -framework Security -lz -lcurl -L$(LIB_CURL)/lib/ -lssl -lcrypto
+	COMPILER_FLAGS=$(CFLAGS) -Wall -I$(LIB_CURL)/include/ -I$(LIB_SSL)/include/
+	LINKER_FLAGS=$(LDFLAGS) -L$(LIB_SSL)/lib/ -lssl -L$(LIB_CURL)/lib/ -lcurl -lcrypto -lz
 else 
 	BAITO_CLIENT=baito-client
 	LIB_CURL=$(BASE_DIR)/lib/host-libcurl
+	LIB_SSL=$(BASE_DIR)/lib/host-libssl
 	LIB_INCLUDE=$(BUILD_DIR)/libbaito/include/baito 
 	LIB_LIB=$(BUILD_DIR)/libbaito/lib
 	COMPILER=gcc
-	COMPILER_FLAGS=-Wall -I$(LIB_CURL)/include/curl/
-	LINKER_FLAGS=-framework CoreFoundation -framework Security -lz -lcurl -L$(LIB_CURL)/lib/ -lssl -lcrypto
+	COMPILER_FLAGS=-Wall -I$(LIB_CURL)/include/ -I$(LIB_SSL)/include/
+	LINKER_FLAGS=-L$(LIB_SSL)/lib/ -lssl -L$(LIB_CURL)/lib/ -lcurl -lcrypto -lz 
 endif
 
 

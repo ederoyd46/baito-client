@@ -9,11 +9,11 @@ make
 
 if [ "$uname" == 'Darwin' ]; then
   setenv_arm7
-  make CROSS_COMPILE=arm7
+  make CROSS_COMPILE=armv7
 
   setenv_arm7s
-  make CROSS_COMPILE=arm7s
-
+  make CROSS_COMPILE=armv7s
+  
   setenv_i386
   make CROSS_COMPILE=i386
   
@@ -24,8 +24,7 @@ if [ "$uname" == 'Darwin' ]; then
   mkdir -p $COMMON_LIB_LIB $COMMON_INCLUDE
   cp -r $BUILD/libbaito/include/* $COMMON_INCLUDE
   
-  lipo -create -output $COMMON_LIB_LIB/libbaito.a $BUILD/arm7s-libbaito/lib/libbaito.a \
-    $BUILD/arm7-libbaito/lib/libbaito.a $BUILD/i386-libbaito/lib/libbaito.a $BUILD/libbaito/lib/libbaito.a
-  
-  
+  lipo -create -output $COMMON_LIB_LIB/libbaito.a $BUILD/armv7s-libbaito/lib/libbaito.a \
+    $BUILD/armv7-libbaito/lib/libbaito.a $BUILD/i386-libbaito/lib/libbaito.a $BUILD/libbaito/lib/libbaito.a
+
 fi
