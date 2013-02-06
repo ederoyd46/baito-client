@@ -171,7 +171,7 @@ SearchResultsResponse jobs_search(const char *searchTerm) {
 SearchResultsResponse jobs_search_full(const char *searchTerm, const double latitude, const double longitude, int limit, int skip) {
   CURL *curl_handle = get_curl_handle();
   
-  char *apiUrl;
+  char *apiUrl = NULL;
   
   if (searchTerm != NULL) {
     const char *searchTermApi = "https://baito.co.uk/api/search?searchTerm=%s&limit=%i&skip=%i";
@@ -201,7 +201,7 @@ SearchResultsResponse jobs_search_full(const char *searchTerm, const double lati
   searchResultResponse.longitude = json_object_dotget_number(jsonObj, "SearchResultsResponse.searchLocation.longitude");
   
   JSON_Array *jsonArray = json_object_dotget_array(jsonObj, "SearchResultsResponse.results");
-  int total = json_array_get_count(jsonArray);
+  size_t total = json_array_get_count(jsonArray);
   if (total < limit) {
     searchResultResponse.morePossible = 0;
   } else {
@@ -309,27 +309,66 @@ const char* user_login(const char *username, const char *password) {
   char *params = malloc(strlen("username=%s&password=%s")+strlen(parsedUsername)+strlen(parsedPassword));
   sprintf(params, "username=%s&password=%s", parsedUsername, parsedPassword);
   
-  
   curl_easy_setopt(curl_handle, CURLOPT_POST, 1);
   curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, params);
-  const char *response = get_data(curl_handle, "https://baito.co.uk/api/user/login");
-  
-  printf("%s\n", response);
-  
-  
+  get_data(curl_handle, "https://baito.co.uk/api/user/login");
   const char *sessionKey = get_session_key(curl_handle);
   put_curl_handle(curl_handle);
   return sessionKey;
 }
 
-void who_am_i(const char *sessionKey) {
+UserResponse who_am_i(const char *sessionKey) {
   const char *api = "https://baito.co.uk/api/user/whoami?sessionkey=%s";
 
   CURL *curl_handle = get_curl_handle();
   char *apiUrl = malloc(strlen(api) + strlen(sessionKey) +1);
   sprintf(apiUrl, api, sessionKey);
   const char *response = get_data(curl_handle, apiUrl);
-  puts(response);
+  
+  
+  JSON_Value *jsonValue = json_parse_string(response);
+  JSON_Object *jsonObj = json_value_get_object(jsonValue);
+  UserResponse userResponse;
+  userResponse.success = json_object_dotget_boolean(jsonObj, "UserResponse.success");
+  
+  if (userResponse.success == 1) {
+    User user;
+    user.username = json_object_dotget_string(jsonObj, "UserResponse.user.User.username");
+    user.name = json_object_dotget_string(jsonObj, "UserResponse.user.User.name");
+    user.email = json_object_dotget_string(jsonObj, "UserResponse.user.User.email");
+    user.phone = json_object_dotget_string(jsonObj, "UserResponse.user.User.phone");
+    user.birthDate = json_object_dotget_string(jsonObj, "UserResponse.user.User.birthDate");
+    
+    int i;
+    JSON_Array *jsonArray;
+    
+    jsonArray = json_object_dotget_array(jsonObj, "UserResponse.user.User.favouriteJobs");
+    user.favouriteJobsCount = json_array_get_count(jsonArray);
+    user.favouriteJobs = calloc(user.favouriteJobsCount, sizeof(const char));
+    for (i = 0; i < user.favouriteJobsCount; i++) {
+      user.favouriteJobs[i] = json_array_get_string(jsonArray, i);
+    }
+
+    jsonArray = json_object_dotget_array(jsonObj, "UserResponse.user.User.createdJobs");
+    user.createdJobsCount = json_array_get_count(jsonArray);
+    user.createdJobs = calloc(user.createdJobsCount, sizeof(const char));
+    for (i = 0; i < user.createdJobsCount; i++) {
+      user.createdJobs[i] = json_array_get_string(jsonArray, i);
+    }
+
+    jsonArray = json_object_dotget_array(jsonObj, "UserResponse.user.User.jobApplications");
+    user.jobApplicationsCount = json_array_get_count(jsonArray);
+    user.jobApplications = calloc(user.jobApplicationsCount, sizeof(const char));
+    for (i = 0; i < user.jobApplicationsCount; i++) {
+      user.jobApplications[i] = json_array_get_string(jsonArray, i);
+    }
+    
+    userResponse.user = user;
+    
+  }
+  
+  return userResponse;
+
 }
 
 void user_view_favourites(const char *sessionKey) {

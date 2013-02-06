@@ -47,6 +47,39 @@ int printJobResponse(JobResponse res) {
   return 0;
 };
 
+int printUserResponse(UserResponse res) {
+  puts("-------------------------------------------------");
+  printf("Success: \t\t %i\n", res.success);
+  if (res.success == 1) {
+    printf("Username: \t\t %s\n", res.user.username);
+    printf("Name: \t\t\t %s\n", res.user.name);
+    printf("Email: \t\t\t %s\n", res.user.email);
+    printf("Phone: \t\t\t %s\n", res.user.phone);
+    printf("Birth Date: \t\t %s\n", res.user.birthDate);
+    printf("Favourite Jobs: \n---------------\n");
+
+    int i;
+    for (i = 0; i < res.user.favouriteJobsCount; i++) {
+      puts(res.user.favouriteJobs[i]);
+    }
+    printf("\n");
+
+    printf("Created Jobs: \n-----------\n");
+    for (i = 0; i < res.user.createdJobsCount; i++) {
+      puts(res.user.createdJobs[i]);
+    }
+    printf("\n");
+
+    printf("Jobs Applications: \n-----------\n");
+    for (i = 0; i < res.user.jobApplicationsCount; i++) {
+      puts(res.user.jobApplications[i]);
+    }
+    printf("\n");
+
+  }
+  puts("-------------------------------------------------");
+  return 0;
+};
 
 
 int main(int argc, char * argv[])
@@ -115,7 +148,8 @@ int main(int argc, char * argv[])
       return 1;
     }
     const char *sessionKey = argv[2];
-    who_am_i(sessionKey);
+    UserResponse res = who_am_i(sessionKey);
+    printUserResponse(res);
     return 0;
   }
 
