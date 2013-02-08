@@ -287,46 +287,8 @@ JobResponse job_view(const char* jobid) {
 }
 
 //-User Authentication -----------------------------------------------------------------------
-
-const char* user_login(const char *username, const char *password) {
-  CURL *curl_handle = get_curl_handle();
-  
-  const char *parsedUsername = curl_easy_escape(curl_handle, username, 0);
-  
-  unsigned char hash[SHA256_DIGEST_LENGTH];
-  SHA256_CTX sha256;
-  SHA256_Init(&sha256);
-  SHA256_Update(&sha256, password, strlen(password));
-  SHA256_Final(hash, &sha256);
-
-  char parsedPassword[65];
-  int i = 0;
-  for(i = 0; i < SHA256_DIGEST_LENGTH; i++) {
-    sprintf(parsedPassword + (i * 2), "%02x", hash[i]);
-  }
-  parsedPassword[64] = 0;
-  
-  char *params = malloc(strlen("username=%s&password=%s")+strlen(parsedUsername)+strlen(parsedPassword));
-  sprintf(params, "username=%s&password=%s", parsedUsername, parsedPassword);
-  
-  curl_easy_setopt(curl_handle, CURLOPT_POST, 1);
-  curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, params);
-  get_data(curl_handle, "https://baito.co.uk/api/user/login");
-  const char *sessionKey = get_session_key(curl_handle);
-  put_curl_handle(curl_handle);
-  return sessionKey;
-}
-
-UserResponse who_am_i(const char *sessionKey) {
-  const char *api = "https://baito.co.uk/api/user/whoami?sessionkey=%s";
-
-  CURL *curl_handle = get_curl_handle();
-  char *apiUrl = malloc(strlen(api) + strlen(sessionKey) +1);
-  sprintf(apiUrl, api, sessionKey);
-  const char *response = get_data(curl_handle, apiUrl);
-  
-  
-  JSON_Value *jsonValue = json_parse_string(response);
+UserResponse buildUserResponse(const char *data) {
+  JSON_Value *jsonValue = json_parse_string(data);
   JSON_Object *jsonObj = json_value_get_object(jsonValue);
   UserResponse userResponse;
   userResponse.success = json_object_dotget_boolean(jsonObj, "UserResponse.success");
@@ -348,14 +310,14 @@ UserResponse who_am_i(const char *sessionKey) {
     for (i = 0; i < user.favouriteJobsCount; i++) {
       user.favouriteJobs[i] = json_array_get_string(jsonArray, i);
     }
-
+    
     jsonArray = json_object_dotget_array(jsonObj, "UserResponse.user.User.createdJobs");
     user.createdJobsCount = json_array_get_count(jsonArray);
     user.createdJobs = calloc(user.createdJobsCount, sizeof(const char));
     for (i = 0; i < user.createdJobsCount; i++) {
       user.createdJobs[i] = json_array_get_string(jsonArray, i);
     }
-
+    
     jsonArray = json_object_dotget_array(jsonObj, "UserResponse.user.User.jobApplications");
     user.jobApplicationsCount = json_array_get_count(jsonArray);
     user.jobApplications = calloc(user.jobApplicationsCount, sizeof(const char));
@@ -366,8 +328,48 @@ UserResponse who_am_i(const char *sessionKey) {
     userResponse.user = user;
     
   }
-  
   return userResponse;
+}
+
+
+const char* user_login(const char *username, const char *password) {
+  CURL *curl_handle = get_curl_handle();
+  const char *response;
+  
+  const char *parsedUsername = curl_easy_escape(curl_handle, username, 0);
+  
+  unsigned char hash[SHA256_DIGEST_LENGTH];
+  SHA256_CTX sha256;
+  SHA256_Init(&sha256);
+  SHA256_Update(&sha256, password, strlen(password));
+  SHA256_Final(hash, &sha256);
+
+  char parsedPassword[65];
+  int i = 0;
+  for(i = 0; i < SHA256_DIGEST_LENGTH; i++) {
+    sprintf(parsedPassword + (i * 2), "%02x", hash[i]);
+  }
+  parsedPassword[64] = 0;
+  
+  char *params = malloc(strlen("username=%s&password=%s")+strlen(parsedUsername)+strlen(parsedPassword));
+  sprintf(params, "username=%s&password=%s", parsedUsername, parsedPassword);
+  
+  curl_easy_setopt(curl_handle, CURLOPT_POST, 1);
+  curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, params);
+  response = get_data(curl_handle, "https://baito.co.uk/api/user/login");
+  const char *sessionKey = get_session_key(curl_handle);
+  put_curl_handle(curl_handle);
+  return sessionKey;
+}
+
+UserResponse who_am_i(const char *sessionKey) {
+  const char *api = "https://baito.co.uk/api/user/whoami?sessionkey=%s";
+
+  CURL *curl_handle = get_curl_handle();
+  char *apiUrl = malloc(strlen(api) + strlen(sessionKey) +1);
+  sprintf(apiUrl, api, sessionKey);
+  const char *response = get_data(curl_handle, apiUrl);
+  return buildUserResponse(response);
 
 }
 
