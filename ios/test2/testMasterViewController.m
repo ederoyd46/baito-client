@@ -27,12 +27,15 @@ BOOL searchRunning = NO;
 {
   [super viewDidLoad];
   UIBarButtonItem *currentButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(currentLocationSearchButtonClicked:)];
-  
   if (_searchTerm.text.length == 0 && _currentLocation == NULL) {
     currentButton.enabled = NO;
   }
-  
   self.navigationItem.rightBarButtonItem = currentButton;
+  
+  UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Login" style:UIBarButtonItemStyleBordered target:self action:@selector(loginButtonClicked:)];
+
+  self.navigationItem.leftBarButtonItem = settingsButton;
+  
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -65,6 +68,13 @@ BOOL searchRunning = NO;
   [_searchTerm resignFirstResponder];
   [self runSearch:YES isSearchMore:NO];
 }
+
+-(void)loginButtonClicked:(UIBarButtonItem *)editButton
+{
+  UIViewController *loginController = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+  [self.navigationController pushViewController:loginController animated:YES];
+}
+
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {

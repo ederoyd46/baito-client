@@ -19,6 +19,7 @@
 		3277289116C13BF700F02A96 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC2416AEF6F800E59A47 /* libcurl.a */; };
 		3277289416C1452B00F02A96 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3277289216C1452B00F02A96 /* libcrypto.a */; };
 		3277289516C1452B00F02A96 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3277289316C1452B00F02A96 /* libssl.a */; };
+		3282B17316C694A40012865A /* baitoLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3282B17216C694A40012865A /* baitoLoginViewController.m */; };
 		32B5DC1F16AEF24700E59A47 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5DC1D16AEF24700E59A47 /* libz.dylib */; };
 		32D1F69216AEEA01006E4EFE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1F69116AEEA01006E4EFE /* UIKit.framework */; };
 		32D1F69416AEEA01006E4EFE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1F69316AEEA01006E4EFE /* Foundation.framework */; };
@@ -42,6 +43,8 @@
 		326652C116B188780083CDFF /* baitoViewJobControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = baitoViewJobControllerViewController.m; sourceTree = "<group>"; };
 		3277289216C1452B00F02A96 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../lib/common-libssl/lib/libcrypto.a"; sourceTree = "<group>"; };
 		3277289316C1452B00F02A96 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../lib/common-libssl/lib/libssl.a"; sourceTree = "<group>"; };
+		3282B17116C694A40012865A /* baitoLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = baitoLoginViewController.h; sourceTree = "<group>"; };
+		3282B17216C694A40012865A /* baitoLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = baitoLoginViewController.m; sourceTree = "<group>"; };
 		32B5DC1D16AEF24700E59A47 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		32B5DC1E16AEF24700E59A47 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		32B5DC2216AEF27C00E59A47 /* libbaito.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbaito.a; path = "../build/common-libbaito/lib/libbaito.a"; sourceTree = "<group>"; };
@@ -91,6 +94,15 @@
 			name = Job;
 			sourceTree = "<group>";
 		};
+		3282B17016C6927A0012865A /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				3282B17116C694A40012865A /* baitoLoginViewController.h */,
+				3282B17216C694A40012865A /* baitoLoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		32D1F68216AEEA01006E4EFE = {
 			isa = PBXGroup;
 			children = (
@@ -131,8 +143,7 @@
 		32D1F69716AEEA01006E4EFE /* baito */ = {
 			isa = PBXGroup;
 			children = (
-				32D1F6A016AEEA01006E4EFE /* testAppDelegate.h */,
-				32D1F6A116AEEA01006E4EFE /* testAppDelegate.m */,
+				3282B17016C6927A0012865A /* Login */,
 				32D1F6A916AEEA01006E4EFE /* MainStoryboard.storyboard */,
 				32D1F6AC16AEEA01006E4EFE /* testMasterViewController.h */,
 				32D1F6AD16AEEA01006E4EFE /* testMasterViewController.m */,
@@ -146,6 +157,8 @@
 		32D1F69816AEEA01006E4EFE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				32D1F6A016AEEA01006E4EFE /* testAppDelegate.h */,
+				32D1F6A116AEEA01006E4EFE /* testAppDelegate.m */,
 				3262F99D16B310C500CCB419 /* icon.png */,
 				3262F99B16B310BC00CCB419 /* icon_small.png */,
 				3262F99916B310B400CCB419 /* Default-568h@2x.png */,
@@ -232,6 +245,7 @@
 				32D1F6A216AEEA01006E4EFE /* testAppDelegate.m in Sources */,
 				32D1F6AE16AEEA01006E4EFE /* testMasterViewController.m in Sources */,
 				326652C216B188780083CDFF /* baitoViewJobControllerViewController.m in Sources */,
+				3282B17316C694A40012865A /* baitoLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

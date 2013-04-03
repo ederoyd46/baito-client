@@ -13,6 +13,7 @@
 @interface testMasterViewController : UITableViewController <UISearchBarDelegate, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchTerm;
+@property (weak, nonatomic) IBOutlet UIView *settingsView;
 
 @end
 

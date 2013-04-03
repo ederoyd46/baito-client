@@ -19,6 +19,77 @@
             </objects>
             <point key="canvasLocation" x="-1" y="64"/>
         </scene>
+        <!--Baito Login View Controller - Login-->
+        <scene sceneID="YTg-ro-VpP">
+            <objects>
+                <viewController storyboardIdentifier="LoginViewController" title="Login" id="D1t-xW-gPh" customClass="baitoLoginViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4MW-LG-FJt">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69a-98-gQf">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="iMa-vc-vrc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Log me in">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginUser:" destination="hKV-sS-l7X" eventType="touchUpInside" id="JYY-pR-hXL"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SYJ-Wa-xOr">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="181" id="cwp-vX-HOY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47F-cr-fcV">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="THL-JG-AIJ">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xc0-1F-bmz">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="47F-cr-fcV" firstAttribute="leading" secondItem="4MW-LG-FJt" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="H01-Ur-IUa"/>
+                            <constraint firstItem="THL-JG-AIJ" firstAttribute="baseline" secondItem="xc0-1F-bmz" secondAttribute="baseline" type="default" id="Jzx-1o-SHE"/>
+                            <constraint firstItem="SYJ-Wa-xOr" firstAttribute="leading" secondItem="47F-cr-fcV" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="SpP-h1-CRn"/>
+                            <constraint firstItem="SYJ-Wa-xOr" firstAttribute="baseline" secondItem="47F-cr-fcV" secondAttribute="baseline" type="default" id="T1p-WE-KMQ"/>
+                            <constraint firstItem="69a-98-gQf" firstAttribute="centerX" secondItem="4MW-LG-FJt" secondAttribute="centerX" type="default" id="TIU-xA-m20"/>
+                            <constraint firstItem="69a-98-gQf" firstAttribute="top" secondItem="4MW-LG-FJt" secondAttribute="top" constant="118" id="TIh-To-xEH"/>
+                            <constraint firstItem="xc0-1F-bmz" firstAttribute="leading" secondItem="4MW-LG-FJt" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Wd8-LQ-cn7"/>
+                            <constraint firstItem="THL-JG-AIJ" firstAttribute="leading" secondItem="SYJ-Wa-xOr" secondAttribute="leading" type="default" id="Xa2-kF-gBX"/>
+                            <constraint firstItem="THL-JG-AIJ" firstAttribute="trailing" secondItem="SYJ-Wa-xOr" secondAttribute="trailing" type="default" id="Xb1-Qt-RGB"/>
+                            <constraint firstItem="THL-JG-AIJ" firstAttribute="top" secondItem="SYJ-Wa-xOr" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="hFL-iz-wLD"/>
+                            <constraint firstItem="47F-cr-fcV" firstAttribute="top" secondItem="4MW-LG-FJt" secondAttribute="top" constant="20" symbolic="YES" type="default" id="xh5-vP-xUy"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="bDr-ac-2sj"/>
+                    <connections>
+                        <outlet property="password" destination="THL-JG-AIJ" id="PD7-UF-nHm"/>
+                        <outlet property="username" destination="SYJ-Wa-xOr" id="JUa-kn-84t"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hKV-sS-l7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="948" y="637"/>
+        </scene>
         <!--Test Master View Controller - Master-->
         <scene sceneID="18">
             <objects>
@@ -356,6 +427,14 @@
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
         </class>
+        <class className="baitoLoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/baitoLoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="loginUser:"/>
+                <relationship kind="outlet" name="password" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="username" candidateClass="UITextField"/>
+            </relationships>
+        </class>
         <class className="baitoViewJobControllerViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/baitoViewJobControllerViewController.h"/>
             <relationships>
@@ -375,6 +454,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/testMasterViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="searchTerm" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="settingsView" candidateClass="UIView"/>
             </relationships>
         </class>
     </classes>
